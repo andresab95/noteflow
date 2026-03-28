@@ -1,0 +1,2505 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NoteFlow">
+<meta name="theme-color" content="#080C18">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Structured Notes Distribution Platform">
+<title>NoteFlow — Structured Notes</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#050810;color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+input,select,button{font-family:inherit}
+select option{background:#0C1020;color:#fff}
+.app{max-width:480px;margin:0 auto;background:linear-gradient(160deg,#0B0F1E 0%,#080C18 60%,#090D1C 100%);min-height:100vh;padding-bottom:70px}
+@media(min-width:768px){
+  .app{max-width:540px}
+  .body{padding:0 20px}
+  .hdr{padding:0 24px}
+}
+@media(min-width:1024px){
+  body{display:flex;justify-content:center;align-items:flex-start;min-height:100vh}
+  .app{max-width:480px;min-height:100vh;box-shadow:0 0 60px rgba(0,0,0,.5)}
+}
+.hdr{background:linear-gradient(180deg,#131829 0%,#0C1020 100%);border-bottom:1px solid rgba(14,165,233,.18);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:-.5px}
+.dbdg{background:rgba(123,97,255,.15);color:#6D56F5;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;border:1px solid rgba(123,97,255,.3)}
+.hright{display:flex;align-items:center;gap:10px}
+.nbtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.45);position:relative;padding:4px;display:flex}
+.nbdg{position:absolute;top:0;right:0;width:15px;height:15px;border-radius:50%;background:linear-gradient(135deg,#F43F5E,#F97316);box-shadow:0 0 6px rgba(244,63,94,.5);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#fff}
+.ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6D56F5,#0EA5E9);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;cursor:pointer;color:#fff;border:none}
+.body{padding:0 14px}
+.greet{padding:15px 0 11px}
+.greet h2{font-size:19px;font-weight:800;letter-spacing:-.5px}
+.greet p{font-size:12px;color:rgba(255,255,255,.4);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat{background:linear-gradient(160deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.03) 100%);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:10px 8px;text-align:center;transition:border-color .15s,background .15s}.stat:active{background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.3)}
+.sv{font-size:22px;font-weight:800}
+.sl{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;margin-top:2px}
+.vix{border-radius:11px;padding:10px 13px;margin-bottom:11px}
+.vrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.vlft{display:flex;align-items:center;gap:6px}
+.vdot{width:6px;height:6px;border-radius:50%}
+.vlbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.vpill{font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px}
+.vtrk{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:5px}
+.vbar{height:100%;border-radius:2px}
+.vins{font-size:11px;color:rgba(255,255,255,.42);line-height:1.5}
+.lgd{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:9px 13px;margin-bottom:11px}
+.lgdt{font-size:9px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.lgdy{display:flex;flex-wrap:wrap;gap:5px 12px;margin-bottom:5px}
+.lgdi{display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.55);font-weight:500}
+.lgdsq{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.lgdrk{display:flex;gap:11px;flex-wrap:wrap;padding-top:5px;border-top:1px solid rgba(255,255,255,.06);align-items:center}
+.lgdd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tabs{display:flex;gap:3px;background:rgba(255,255,255,.05);border-radius:10px;padding:4px;margin-bottom:11px}
+.tab{flex:1;padding:6px 2px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-size:10px;background:transparent;color:rgba(255,255,255,.4);transition:all .15s}
+.tab.on{background:linear-gradient(135deg,#0EA5E9 0%,#6D56F5 100%);color:#fff}
+.nc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:14px;cursor:pointer;position:relative;overflow:hidden;margin-bottom:9px}
+.nacc{position:absolute;top:0;left:0;width:3px;height:100%}
+.ntop{display:flex;justify-content:space-between;align-items:flex-start}
+.nlft{flex:1}
+.nbgs{display:flex;align-items:center;gap:4px;margin-bottom:5px;flex-wrap:wrap}
+.niss{font-weight:700;font-size:13px}
+.ptpill{font-size:8px;font-weight:700;padding:2px 5px;border-radius:20px}
+.rkpill{font-size:8px;font-weight:700;padding:2px 5px;border-radius:20px}
+.newpill{font-size:8px;font-weight:600;padding:2px 5px;border-radius:20px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5)}
+.utks{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.utk{background:rgba(255,255,255,.07);font-size:11px;font-weight:700;padding:2px 6px;border-radius:5px}
+.nflds{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px}
+.nfll{font-size:8px;color:rgba(255,255,255,.33);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.nflv{font-size:11px;font-weight:700;margin-top:1px}
+.nrgt{text-align:right;margin-left:10px;flex-shrink:0}
+.cnum{font-size:24px;font-weight:900;line-height:1}
+.csub{font-size:9px;color:rgba(255,255,255,.35);margin-top:2px}
+.nfoot{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center}
+.ntime{font-size:10px;color:rgba(255,255,255,.33)}
+.ncta{font-size:11px;font-weight:700}
+.clsbar{margin-top:7px;padding:5px 8px;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-radius:7px;display:flex;align-items:center;gap:5px}
+.clsdot{width:5px;height:5px;border-radius:50%;background:#F43F5E;flex-shrink:0}
+.clstxt{font-size:9px;font-weight:800;color:#F43F5E;text-transform:uppercase;letter-spacing:.4px}
+.frow{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.fpill{padding:3px 8px;border-radius:20px;border:1px solid;cursor:pointer;font-weight:700;font-size:10px;background:transparent;color:rgba(255,255,255,.4)}
+.slbl{font-size:10px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.chip{padding:5px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-weight:700;font-size:11px;background:transparent;color:rgba(255,255,255,.4);transition:all .15s}
+.fg{margin-bottom:10px}
+.fl{font-size:9px;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.fi{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:9px 11px;color:#fff;font-size:13px;font-weight:700;outline:none}
+.fsel{width:100%;background:#0C1020;border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:9px 10px;color:#fff;font-size:12px;outline:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+.bM{width:100%;padding:12px;border-radius:11px;border:none;background:linear-gradient(135deg,#0EA5E9 0%,#6D56F5 100%);color:#fff;font-weight:800;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.bD{width:100%;padding:12px;border-radius:11px;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.28);font-weight:800;font-size:13px;cursor:not-allowed}
+.togwrap{display:flex;align-items:center;gap:10px;padding:9px 11px;background:rgba(255,255,255,.05);border-radius:9px;margin-bottom:10px;cursor:pointer}
+.togtrk{width:37px;height:20px;border-radius:10px;position:relative;flex-shrink:0;transition:background .2s}
+.togthm{position:absolute;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+.bpair{display:flex;gap:7px;margin-bottom:10px}
+.bpb{flex:1;padding:7px;border-radius:9px;border:1px solid rgba(255,255,255,.1);cursor:pointer;font-size:11px;font-weight:700;background:transparent;color:rgba(255,255,255,.4)}
+.dcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer}
+.drow{display:flex;align-items:center;gap:9px}
+.dticker{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.dinfo{flex:1;min-width:0}
+.dname{font-weight:700;font-size:13px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.dsub{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dsig{text-align:right;flex-shrink:0}
+.signum{font-size:19px;font-weight:900;line-height:1}
+.siglbl{font-size:9px;color:rgba(255,255,255,.38)}
+.totbar{margin-top:8px;padding:6px 10px;background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.14);border-radius:7px;display:flex;justify-content:space-between;align-items:center}
+.totlbl{font-size:9px;font-weight:700;color:rgba(0,229,160,.6);text-transform:uppercase;letter-spacing:.3px}
+.totval{font-size:16px;font-weight:900;color:#10B981}
+.actbtns{display:flex;gap:6px;margin-top:7px}
+.bacc{flex:1;padding:6px;border-radius:7px;border:1px solid rgba(0,229,160,.28);background:rgba(0,229,160,.08);color:#10B981;font-weight:700;font-size:10px;cursor:pointer}
+.bctr{flex:1;padding:6px;border-radius:7px;border:1px solid rgba(255,179,71,.3);background:rgba(255,179,71,.08);color:#F59E0B;font-weight:700;font-size:10px;cursor:pointer}
+.bpas{flex:1;padding:6px;border-radius:7px;border:1px solid rgba(255,255,255,.09);background:transparent;color:rgba(255,255,255,.4);font-weight:700;font-size:10px;cursor:pointer}
+.ocard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:13px;margin-bottom:8px}
+.spill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:5px;display:inline-block}
+.ctrbox{background:rgba(255,179,71,.07);border:1px solid rgba(255,179,71,.25);border-radius:8px;padding:9px 11px;margin-top:9px}
+.bnav{background:linear-gradient(180deg,#0C1020 0%,#0A0E1C 100%);border-top:1px solid rgba(14,165,233,.15);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding-bottom:env(safe-area-inset-bottom,0px);padding:8px 0 13px;display:flex;justify-content:space-around;position:sticky;bottom:0}
+.navbtn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;padding:0 8px}
+.navlbl{font-size:9px;font-weight:600}
+.mover{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:flex-end;z-index:100}
+.mbox{background:#0C1020;border:1px solid rgba(255,255,255,.1);border-radius:22px 22px 0 0;width:100%;max-width:480px;margin:0 auto;padding:19px 17px 30px;max-height:90vh;overflow-y:auto}
+.mhdl{width:30px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;margin:0 auto 13px}
+.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.mtitle{font-size:15px;font-weight:800}
+.xbtn{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.07);border:none;cursor:pointer;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center}
+.cover{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:18px;z-index:200}
+.cbox{background:#0C1020;border:1px solid rgba(255,255,255,.1);border-radius:20px;width:100%;max-width:380px;padding:22px}
+.mbtns{display:flex;gap:8px;margin-top:12px}
+.bcnl{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);font-weight:600;font-size:12px;cursor:pointer}
+.bokbtn{flex:2;padding:10px;border-radius:10px;border:none;background:linear-gradient(135deg,#0EA5E9 0%,#6D56F5 100%);color:#fff;font-weight:800;font-size:12px;cursor:pointer}
+.ibox{background:rgba(255,255,255,.05);border-radius:9px;padding:9px 11px;margin-bottom:11px}
+.ir{font-size:12px;color:rgba(255,255,255,.42);margin-bottom:2px}
+.toast{background:#0C1020;border:1px solid rgba(0,229,160,.3);color:#10B981;padding:9px 14px;border-radius:10px;font-weight:700;font-size:12px;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.notifdraw{background:#0C1020;border:1px solid rgba(255,255,255,.1);margin-bottom:11px}
+.notifh{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;font-weight:700;display:flex;justify-content:space-between}
+.notifi{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:6px}
+.ndot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.ntit{font-size:12px;font-weight:700;margin-bottom:2px}
+.nbody{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5}
+.gcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.grow{padding:11px 13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.gico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.gterm{font-weight:700;font-size:13px}
+.gshort{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;line-height:1.35}
+.gbody{padding:0 13px 13px 51px}
+.gsec{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:9px;margin-bottom:3px}
+.gtxt{font-size:12px;color:rgba(255,255,255,.6);line-height:1.6}
+.riskbox{background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.18);border-radius:8px;padding:8px 10px;margin-top:7px}
+.srchwrap{position:relative;margin-bottom:8px}
+.srchi{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:8px 11px;transition:border-color .15s}
+.srchi.act{border-color:#10B981}
+.srchi input{background:none;border:none;outline:none;color:#fff;font-size:13px;flex:1}
+.srchdrop{position:absolute;top:100%;left:0;right:0;background:#0C1020;border:1px solid rgba(255,255,255,.1);border-radius:9px;z-index:60;overflow:hidden;margin-top:3px}
+.srchrow{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06)}
+.srchrow:hover{background:rgba(0,229,160,.06)}
+.srchrow:last-child{border-bottom:none}
+.seltks{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+.seltk{display:flex;align-items:center;gap:3px;background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.3);border-radius:6px;padding:2px 7px}
+.seltk span{font-size:12px;font-weight:800;color:#10B981}
+.seltk button{background:none;border:none;cursor:pointer;color:rgba(0,229,160,.5);font-size:15px;padding:0;line-height:1}
+.poprow{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:13px}
+.poptk{padding:3px 7px;border-radius:6px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:rgba(255,255,255,.4);font-size:11px;font-weight:800;cursor:pointer}
+.rfqprice{background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);border-radius:8px;padding:8px 11px;margin-top:7px}
+.login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:#080C18}
+.lcard{width:100%;max-width:360px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px}
+.lfield{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px 11px;margin-bottom:10px}
+.lfield input{background:none;border:none;outline:none;color:#fff;font-size:14px;flex:1}
+.demobox{margin-top:13px;padding:11px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.05)}
+.demorow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer}
+.demorow:last-child{border-bottom:none}
+.splash{position:fixed;inset:0;background:#080C18;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.splash.out{opacity:0;transform:scale(.96);pointer-events:none}
+
+/* Whole boat rocks gently — pivot at waterline */
+@keyframes hullRock{
+  0%   {transform:rotate(-1deg)}
+  25%  {transform:rotate(1.2deg)}
+  50%  {transform:rotate(-.7deg)}
+  75%  {transform:rotate(1deg)}
+  100% {transform:rotate(-1deg)}
+}
+/* Main sail fills with air — slight scale on X from the mast edge */
+@keyframes mainSailBreath{
+  0%,100%{transform:scaleX(1);opacity:.95}
+  40%    {transform:scaleX(1.07);opacity:1}
+  70%    {transform:scaleX(.97);opacity:.88}
+}
+/* Jib sail — catches wind after main */
+@keyframes jibBreath{
+  0%,100%{transform:scaleX(1);opacity:.55}
+  40%    {transform:scaleX(1.09);opacity:.72}
+  70%    {transform:scaleX(.96);opacity:.48}
+}
+/* Wake lines pulse — water flowing past hull */
+@keyframes wakeBreath{
+  0%,100%{opacity:.8;stroke-width:2.5}
+  50%    {opacity:.45;stroke-width:1.8}
+}
+/* Glow breathes */
+@keyframes glowPulse{
+  0%,100%{opacity:.5;transform:translate(-50%,-55%) scale(1)}
+  50%    {opacity:.85;transform:translate(-50%,-55%) scale(1.15)}
+}
+@keyframes nameReveal{
+  0%  {opacity:0;letter-spacing:8px;transform:translateY(8px)}
+  100%{opacity:1;letter-spacing:-.5px;transform:translateY(0)}
+}
+@keyframes tagReveal{
+  0%  {opacity:0;transform:translateY(5px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes dotPulse{
+  0%,100%{opacity:.25;transform:scale(.8)}
+  50%    {opacity:1;transform:scale(1.2)}
+}
+.name-reveal{animation:nameReveal .8s cubic-bezier(.16,1,.3,1) .5s both}
+.tag-reveal {animation:tagReveal .7s cubic-bezier(.16,1,.3,1) .85s both}
+@keyframes streamFlow{
+  0%  {transform:translateX(-18px);opacity:0}
+  20% {opacity:.7}
+  80% {opacity:.5}
+  100%{transform:translateX(18px);opacity:0}
+}
+.water-lines{display:flex;flex-direction:column;gap:5px;margin-top:32px;align-items:center}
+.water-lines span{height:1.5px;border-radius:2px;background:linear-gradient(90deg,transparent,#0EA5E9,transparent);animation:streamFlow 1.8s ease-in-out infinite}
+.water-lines span:nth-child(1){width:48px;animation-delay:0s}
+.water-lines span:nth-child(2){width:64px;animation-delay:.22s;background:linear-gradient(90deg,transparent,#6D56F5 40%,#0EA5E9,transparent)}
+.water-lines span:nth-child(3){width:40px;animation-delay:.44s}
+.water-lines span:nth-child(4){width:56px;animation-delay:.66s;background:linear-gradient(90deg,transparent,#0EA5E9 30%,#6D56F5,transparent)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// ─── Supabase config — replace eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mZ3Z4bmJvY2VyenJiZG5wYWxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDI1NTgsImV4cCI6MjA5MDI3ODU1OH0.l0tfvLxRycXWBnjj0oby-SB96koZ3eoR8aUx2ehO-OQ with your actual key ──
+const SUPABASE_URL  = 'https://ofgvxnbocerzrbdnpald.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mZ3Z4bmJvY2VyenJiZG5wYWxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDI1NTgsImV4cCI6MjA5MDI3ODU1OH0.l0tfvLxRycXWBnjj0oby-SB96koZ3eoR8aUx2ehO-OQ';
+
+const {useState,useEffect,useRef}=React;
+const h=React.createElement;
+
+const PT={autocallable:{l:"Autocallable",c:"#0EA5E9",s:"Early redemption if underlyings hit call level on observation dates"},callable:{l:"Issuer Callable",c:"#6D56F5",s:"Desk-callable at any time — no automatic trigger"},participation:{l:"Participation",c:"#10B981",s:"Leveraged upside participation with principal protection"},protected:{l:"Capital Protected",c:"#2563EB",s:"100% principal returned at maturity"},catapult:{l:"Catapult/Booster",c:"#F43F5E",s:"Leveraged upside to cap — full capital at risk below barrier"}};
+const ptc=n=>PT[n.pt]?.c||"#0EA5E9";
+const ptl=n=>PT[n.pt]?.l||"Note";
+const rb=pt=>pt==="protected"?{l:"Protected",c:"#10B981",bg:"rgba(0,229,160,.1)",bd:"rgba(0,229,160,.28)"}:{l:"Barrier",c:"#F59E0B",bg:"rgba(255,179,71,.1)",bd:"rgba(255,179,71,.28)"};
+const pm=v=>parseInt((v||"").toString().replace(/,/g,""),10)||0;
+const ISSUERS=["Goldman Sachs","Morgan Stanley","JP Morgan","Citi","Barclays","BNP Paribas","Deutsche Bank","UBS","SocGen"];
+const POPULAR=["AAPL","AMZN","TSLA","NVDA","META","MSFT","GOOGL","SPY","QQQ","GLD","IWM","BAC","NFLX","AMD"];
+const CALLF=["Quarterly","Semi-Annual","Annual"];
+const TENORS=["3 months","6 months","9 months","1 year","18 months","2 years","3 years","4 years","5 years"];
+const nB=pt=>["autocallable","callable","catapult"].includes(pt);
+const nCF=pt=>["autocallable","callable","protected"].includes(pt);
+const nM=pt=>["autocallable","callable"].includes(pt);
+const nC=pt=>["autocallable","callable","protected"].includes(pt);
+const nP=pt=>["participation","catapult"].includes(pt);
+const nL=pt=>pt==="catapult";
+const USERS=[{id:"u1",email:"james@wealth.com",pw:"demo123",name:"James D.",ini:"JD",role:"client"},{id:"u2",email:"desk@gs.com",pw:"demo123",name:"Sarah K.",ini:"SK",role:"desk"}];
+const NOTES=[{id:"n1",issuer:"Goldman Sachs",ticker:"GS",und:["AAPL","AMZN","TSLA"],pt:"autocallable",coupon:10.25,barrier:30,cf:"Quarterly",tenor:"18 months",mem:false,isNew:true,status:"active",cm:null,pr:null,pl:null,lev:null,cap:null},{id:"n2",issuer:"Morgan Stanley",ticker:"MS",und:["NVDA","META"],pt:"callable",coupon:12.50,barrier:35,cf:null,tenor:"1 year",mem:true,isNew:false,status:"active",cm:null,pr:null,pl:null,lev:null,cap:null},{id:"n3",issuer:"JP Morgan",ticker:"JPM",und:["SPY","QQQ"],pt:"participation",coupon:null,barrier:null,cf:null,tenor:"2 years",mem:false,isNew:false,status:"active",cm:null,pr:150,pl:100,lev:null,cap:null},{id:"n4",issuer:"Citi",ticker:"C",und:["MSFT","GOOGL"],pt:"protected",coupon:6.50,barrier:null,cf:"Quarterly",tenor:"3 years",mem:false,isNew:true,status:"active",cm:null,pr:null,pl:100,lev:null,cap:null},{id:"n5",issuer:"UBS",ticker:"UB",und:["NVDA","TSLA"],pt:"catapult",coupon:null,barrier:30,cf:null,tenor:"1 year",mem:false,isNew:true,status:"active",cm:null,pr:200,pl:null,lev:2,cap:40}];
+const INDS=[
+  {id:"i1",nid:"n1",cid:"u1",cn:"James D.",ci:"JD",amt:500000,st:"pending",t:"9:44 AM",counter:null},
+  {id:"i2",nid:"n2",cid:"u1",cn:"James D.",ci:"JD",amt:300000,st:"pending",t:"8:20 AM",counter:null},
+  {id:"i3",nid:"n3",cid:"u1",cn:"James D.",ci:"JD",amt:750000,st:"accepted",t:"Yesterday",counter:null},
+  {id:"i4",nid:"n4",cid:"u1",cn:"James D.",ci:"JD",amt:1000000,st:"countered",t:"Yesterday",counter:{coupon:"6.00",barrier:null,tenor:"2 years",cf:"Semi-Annual",btype:null,mem:null,pr:null,lev:null,cap:null,strike:null,msg:"Best we can do at current rates"},counterHistory:[{by:"desk",coupon:"6.00",tenor:"2 years",cf:"Semi-Annual",msg:"Best we can do at current rates",t:"Yesterday"}]},
+  {id:"i5",nid:"n5",cid:"u1",cn:"James D.",ci:"JD",amt:250000,st:"passed",t:"2 days ago",counter:null},
+];
+const GLOSS=[{term:"Autocallable",c:"#0EA5E9",ico:"⚡",s:"Early redemption if underlyings hit call level.",d:"On each observation date, if all underlyings close at or above the call barrier, the note is called early and you receive principal back plus all accrued coupon.",ex:"$1M quarterly on AAPL/AMZN at 10.25% p.a. Both above starting prices → note called, full principal returned.",r:"If the barrier breaches at final maturity, you absorb the full loss."},{term:"Issuer Callable",c:"#6D56F5",ico:"📞",s:"Desk decides when to call — no automatic trigger.",d:"Unlike autocallables, the desk has discretionary control over redemption timing.",ex:"3-yr callable at 12.50%. Desk calls after 14 months → principal plus accumulated coupon.",r:"Impossible to predict. You carry reinvestment risk when called early."},{term:"Participation",c:"#10B981",ico:"📈",s:"Leveraged upside with principal protection.",d:"Receive a multiple of the underlying gains up to any cap, with principal protected at maturity.",ex:"$1M on SPY, 150% participation, 100% protected. SPY +20% → $1.3M. SPY −30% → $1M.",r:"No income stream. Flat markets underperform coupon alternatives."},{term:"Capital Protected",c:"#2563EB",ico:"🔒",s:"100% principal returned at maturity no matter what.",d:"Issuer uses a zero-coupon bond to guarantee principal, then buys options for upside exposure.",ex:"$500k, 6.5% conditional coupon. NVDA falls 80% — you still receive $500k.",r:"Relies entirely on issuer solvency."},{term:"Catapult/Booster",c:"#F43F5E",ico:"🚀",s:"Leveraged upside to cap — full capital at risk below barrier.",d:"Above initial: leveraged participation up to a cap. Below barrier: full 1:1 downside. No coupon.",ex:"$500k, 200% participation, 40% cap, 30% barrier. NVDA +15% → +30% ($650k). NVDA −35% → $325k.",r:"Highest risk product. Full unprotected downside below barrier."},{term:"Barrier",c:"#F59E0B",ico:"🛡️",s:"Level below which principal protection is lost.",d:"European barriers check only at final maturity. American (daily) barriers breach more often.",ex:"30% European barrier on AAPL at $200. Protected as long as AAPL closes above $140 at maturity.",r:"American barriers breach more often in volatile markets."},{term:"Memory coupon",c:"#8B5CF6",ico:"🧠",s:"Missed coupons accumulate and pay all at once.",d:"Without memory: missed coupons lost. With memory: they accumulate and pay next time conditions are met.",ex:"3% quarterly. Q1 miss, Q2 miss, Q3 hit → 9% paid at once.",r:"Memory notes carry a slightly lower headline coupon."}];
+
+function SailAnimated({sz=120}){
+  const id="sga",rx=Math.round(sz*.275);
+  return h("svg",{width:sz,height:sz,viewBox:"0 0 80 80",fill:"none"},
+    h("defs",null,
+      h("linearGradient",{id,x1:0,y1:0,x2:80,y2:80,gradientUnits:"userSpaceOnUse"},
+        h("stop",{stopColor:"#0EA5E9"}),
+        h("stop",{offset:"1",stopColor:"#6D56F5"})
+      )
+    ),
+    // Background — static
+    h("rect",{width:80,height:80,rx,fill:"url(#"+id+")"}),
+
+    // Everything inside rocks together — boat on water
+    h("g",{style:{animation:"hullRock 3.6s ease-in-out infinite",transformOrigin:"40px 60px"}},
+
+      // MAST — exactly as original, no animation
+      h("path",{d:"M40 57L40 13",stroke:"#fff",strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+
+      // MAIN SAIL — exact original path, just breathes in opacity (wind filling)
+      h("path",{d:"M40 15L18 52L40 52Z",fill:"#fff",
+        style:{animation:"mainSailBreath 3.2s ease-in-out infinite",transformOrigin:"40px 35px"}}),
+
+      // JIB SAIL — exact original path, breathes offset
+      h("path",{d:"M40 19L59 46L40 46Z",fill:"#fff",fillOpacity:.55,
+        style:{animation:"jibBreath 3.2s ease-in-out .5s infinite",transformOrigin:"40px 33px"}}),
+
+      // WAKE LINE 1 — exact original, subtle opacity pulse
+      h("path",{d:"M17 56Q40 62 63 56",stroke:"#fff",strokeWidth:2.5,strokeLinecap:"round",fill:"none",
+        style:{animation:"wakeBreath 2.8s ease-in-out infinite"}}),
+
+      // WAKE LINE 2 — exact original
+      h("path",{d:"M15 60Q40 66 65 60",stroke:"#fff",strokeWidth:1.5,strokeLinecap:"round",fill:"none",strokeOpacity:.4,
+        style:{animation:"wakeBreath 2.8s ease-in-out .3s infinite"}})
+    )
+  );
+}
+
+function Sail({sz=44}){
+  const id="sg"+sz,rx=Math.round(sz*.275);
+  return h("svg",{width:sz,height:sz,viewBox:"0 0 80 80",fill:"none"},
+    h("defs",null,h("linearGradient",{id,x1:0,y1:0,x2:80,y2:80,gradientUnits:"userSpaceOnUse"},h("stop",{stopColor:"#0EA5E9"}),h("stop",{offset:"1",stopColor:"#6D56F5"}))),
+    h("rect",{width:80,height:80,rx,fill:"url(#"+id+")"}),
+    h("path",{d:"M40 57L40 13",stroke:"#fff",strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+    h("path",{d:"M40 15L18 52L40 52Z",fill:"#fff",fillOpacity:.95}),
+    h("path",{d:"M40 19L59 46L40 46Z",fill:"#fff",fillOpacity:.55}),
+    h("path",{d:"M17 56Q40 62 63 56",stroke:"#fff",strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+    h("path",{d:"M15 60Q40 66 65 60",stroke:"#fff",strokeWidth:1.5,strokeLinecap:"round",fill:"none",strokeOpacity:.4})
+  );
+}
+function Tog({v,on}){return h("div",{className:"togtrk",style:{background:v?"#6D56F5":"rgba(255,255,255,.1)",cursor:"pointer"},onClick:on},h("div",{className:"togthm",style:{left:v?20:3}}));}
+function FG({label,children,mb=10}){return h("div",{style:{marginBottom:mb}},h("div",{className:"fl"},label),children);}
+
+function App(){
+  const [user,setUser]=useState(null);
+  const [em,setEm]=useState("");const [pw,setPw]=useState("");const [lerr,setLerr]=useState("");const [mode,setMode]=useState("login");const [fullName,setFullName]=useState("");const [confirmPw,setConfirmPw]=useState("");const [signupRole,setSignupRole]=useState("client");const [inviteCode,setInviteCode]=useState("");const [loading,setLoading]=useState(false);
+  const [notes,setNotes]=useState(NOTES);const [inds,setInds]=useState(INDS);const [rfqs,setRfqs]=useState([]);
+  const [notifs,setNotifs]=useState([
+    {id:"s1",uid:"u1",title:"✓ Indication accepted",body:"Your $500,000 indication on Goldman Sachs (AAPL, AMZN, TSLA) has been accepted by the desk.",read:false,type:"accepted"},
+    {id:"s2",uid:"u2",title:"New indication — Goldman Sachs",body:"James D. indicated $500,000 on Goldman Sachs (AAPL, AMZN, TSLA) · 18 months",read:false,type:"ind"},
+    {id:"s3",uid:"u2",title:"New indication — Morgan Stanley",body:"James D. indicated $300,000 on Morgan Stanley (NVDA, META) · 1 year",read:false,type:"ind"},
+  ]);
+  const [tab,setTab]=useState("build");
+  const [selN,setSelN]=useState(null);
+  const [confR,setConfR]=useState(false);const [confInd,setConfInd]=useState(null);
+  const [priceR,setPriceR]=useState(null);const [pf,setPf]=useState({coupon:"",barrier:"",msg:""});
+  const [deskTab,setDeskTab]=useState("inbox");const [splash,setSplash]=useState(true);const [splashOut,setSplashOut]=useState(false);const [ctrInd,setCtrInd]=useState(null);const [cf2,setCf2]=useState({issuer:"",coupon:"",barrier:"",tenor:"",cf:"",btype:"",mem:null,pr:"",lev:"",cap:"",strike:"",msg:""});
+  const [closeN,setCloseN]=useState(null);const [closeMsg,setCloseMsg]=useState("");
+  const [showN,setShowN]=useState(false);const [openG,setOpenG]=useState(null);const [toast,setToast]=useState(null);const [clientTab,setClientTab]=useState("action");const [acceptModal,setAcceptModal]=useState(null);const [closeOpenModal,setCloseOpenModal]=useState(null);const [reCounterModal,setReCounterModal]=useState(null);const [rcf,setRcf]=useState({coupon:"",barrier:"",tenor:"",cf:"",btype:"",mem:null,pr:"",lev:"",cap:"",strike:"",msg:""});
+  const [rfqF,setRfqF]=useState({issuers:[],und:[],coup:"",barrier:"30",cf:"Quarterly",tenor:"1 year",mem:false,notional:"",btype:"European",pt:"autocallable",lev:"",cap:""});
+  const [newN,setNewN]=useState({pt:"autocallable",issuer:"",und:"",coupon:"",barrier:"30",cf:"Quarterly",tenor:"1 year",mem:false,pr:"",pl:"100",lev:"",cap:""});
+  const [tks,setTks]=useState("");const [tkRes,setTkRes]=useState([]);const [tkLoad,setTkLoad]=useState(false);
+  const tkT=useRef(null);
+
+  const isDesk=user?.role==="desk";
+  const myN=isDesk?notifs.filter(n=>n.uid==="u2"):notifs.filter(n=>n.uid===user?.id);
+  const unread=myN.filter(n=>!n.read).length;
+  const myI=inds.filter(i=>i.cid===user?.id);
+  const toast_=msg=>{setToast(msg);setTimeout(()=>setToast(null),3000);};
+  
+
+  useEffect(()=>{
+    // Splash screen — boat animates for 2s then fades out
+    const t1=setTimeout(()=>setSplashOut(true), 4200);
+    const t2=setTimeout(()=>setSplash(false), 4950);
+    return ()=>{clearTimeout(t1);clearTimeout(t2);};
+  },[]);
+
+  useEffect(()=>{
+    clearTimeout(tkT.current);
+    if(!tks){setTkRes([]);return;}
+    tkT.current=setTimeout(async()=>{
+      setTkLoad(true);
+      try{
+        const url="https://query1.finance.yahoo.com/v1/finance/search?q="+encodeURIComponent(tks)+"&quotesCount=8&newsCount=0";
+        const res=await fetch("https://api.allorigins.win/get?url="+encodeURIComponent(url));
+        const j=await res.json();const d=JSON.parse(j.contents);
+        setTkRes((d?.finance?.result?.[0]?.quotes||[]).filter(x=>["EQUITY","ETF","INDEX"].includes(x.quoteType)).slice(0,6).map(x=>({s:x.symbol,n:x.shortname||x.symbol,t:x.quoteType})));
+      }catch{setTkRes([{s:tks.toUpperCase(),n:tks.toUpperCase(),t:"EQUITY"}]);}
+      setTkLoad(false);
+    },380);
+  },[tks]);
+
+  // Auto-switch client My Structures to action tab when desk responds
+  React.useEffect(()=>{
+    const hasAction=myI.filter(i=>i.st==="countered").length+rfqs.filter(r=>r.cid===user?.id&&r.status==="priced").length;
+    if(hasAction>0) setClientTab("action");
+  },[inds,rfqs]);
+
+  const addUnd=s=>{const u=s.trim().toUpperCase();if(u&&!rfqF.und.includes(u)&&rfqF.und.length<8)setRfqF(r=>({...r,und:[...r.und,u]}));setTks("");setTkRes([]);};
+  async function doLogin(){
+    setLerr("");
+    if(!em||!pw){setLerr("Please enter your email and password");return;}
+    // Demo fallback when Supabase not configured
+    if(!window.sb||false){
+      const u=USERS.find(u=>u.email===em&&u.pw===pw);
+      if(u){setUser(u);setLerr("");}
+      else setLerr("Invalid email or password");
+      return;
+    }
+    try{
+      const {data:a,error:ae}=await window.sb.auth.signInWithPassword({email:em.toLowerCase().trim(),password:pw});
+      if(ae){setLerr("Invalid email or password");return;}
+      const {data:p,error:pe}=await window.sb.from("users").select("id,email,full_name,initials,role,firm_id,is_active").eq("id",a.user.id).single();
+      if(pe||!p){setLerr("Account not found. Contact your administrator.");return;}
+      if(!p.is_active){setLerr("Your account is inactive.");return;}
+      setUser({id:p.id,email:p.email,name:p.full_name,ini:p.initials,role:p.role,firmId:p.firm_id});
+      setLerr("");
+    }catch(e){setLerr("Login failed. Please try again.");console.error(e);}
+  }
+  async function doSignup(){
+    setLerr("");
+    if(!fullName.trim()){setLerr("Please enter your full name");return;}
+    if(!em.trim()){setLerr("Please enter your email");return;}
+    if(pw.length<8){setLerr("Password must be at least 8 characters");return;}
+    if(pw!==confirmPw){setLerr("Passwords do not match");return;}
+
+    // Validate invite code
+    const DESK_CODE="DESK2024";
+    const CLIENT_CODE="CLIENT2024";
+    if(signupRole==="desk"&&inviteCode!==DESK_CODE){setLerr("Invalid desk access code");return;}
+    if(signupRole==="client"&&inviteCode!==CLIENT_CODE){setLerr("Invalid client access code");return;}
+
+    // Supabase connected — proceed with signup
+
+    setLoading(true);
+    try{
+      const ini=fullName.trim().split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2);
+      
+      // Step 1: Sign up with Supabase Auth
+      const {data,error}=await window.sb.auth.signUp({
+        email:em.toLowerCase().trim(),
+        password:pw,
+        options:{data:{role:signupRole,full_name:fullName.trim(),initials:ini,firm_slug:"demo-capital"}}
+      });
+      if(error){setLerr(error.message||"Sign up failed. Please try again.");return;}
+
+      // Step 2: Get firm id and insert user profile
+      try{
+        const firmResp=await window.sb.from("firms").select("id").eq("slug","demo-capital").single();
+        const firmId=firmResp?.data?.id||null;
+        if(firmId&&data.user){
+          await window.sb.from("users").insert({
+            id:data.user.id,
+            firm_id:firmId,
+            email:em.toLowerCase().trim(),
+            password_hash:"supabase-managed",
+            full_name:fullName.trim(),
+            initials:ini,
+            role:signupRole,
+            is_active:true
+          });
+        }
+      }catch(e){console.warn("Profile insert:",e);}
+
+      // Step 3: Auto login if we got a token back
+      if(window._sbToken&&data.user){
+        setUser({
+          id:data.user.id,
+          email:em.toLowerCase().trim(),
+          name:fullName.trim(),
+          ini,
+          role:signupRole,
+          firmId:null
+        });
+      } else {
+        setMode("login");
+        setEm(em.toLowerCase().trim());
+        setPw("");
+        setConfirmPw("");
+        setFullName("");
+        setInviteCode("");
+        setLerr("Account created! Sign in below.");
+      }
+    }catch(e){
+      setLerr("Sign up failed. Please try again.");
+      console.error(e);
+    }finally{setLoading(false);}
+  }
+
+  function submitInd(){
+    const el=document.getElementById("indamt");const v=el?el.value:"";const amt=pm(v);
+    if(!amt||!selN)return;
+    // Show confirmation popup with details before submitting
+    setConfInd({note:selN, amt, amtFmt:"$"+amt.toLocaleString()});
+  }
+
+  function confirmInd(){
+    if(!confInd)return;
+    const {note:n, amt} = confInd;
+    setInds(p=>[...p,{id:"i"+Date.now(),nid:n.id,cid:user.id,cn:user.name,ci:user.ini,amt,st:"pending",t:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),counter:null}]);
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:"u2",title:"New indication — "+n.issuer,body:user.name+" indicated $"+amt.toLocaleString()+" on "+n.issuer+" ("+n.und.join(", ")+") · "+n.tenor,read:false,type:"ind"},...p]);
+    const el=document.getElementById("indamt");if(el)el.value="";
+    setConfInd(null);setSelN(null);toast_("Indication sent to desk!");
+  }
+  function exportToExcel(){
+    const rows=[];
+    // Header
+    rows.push(["Type","Client","Amount (USD)","Status","Product","Issuer","Underlyings","Tenor","Coupon %","Barrier %","Obs. Freq","Barrier Type","Memory","Participation %","Leverage","Cap %","Strike %","Counter Issuer","Counter Coupon %","Counter Barrier %","Counter Tenor","Counter Obs. Freq","Counter Participation %","Counter Leverage","Counter Cap %","Counter Message","Time"]);
+
+    // All indications
+    inds.forEach(ind=>{
+      const note=notes.find(n=>n.id===ind.nid);
+      const c=ind.counter||{};
+      rows.push([
+        "Indication",
+        ind.cn,
+        ind.amt,
+        ind.st,
+        note?PT[note.pt]?.l:"",
+        note?note.issuer:"",
+        note?note.und.join(", "):"",
+        note?note.tenor:"",
+        note?note.coupon||"":"",
+        note?note.barrier||"":"",
+        note?note.cf||"":"",
+        "","",
+        note?note.pr||"":"",
+        note?note.lev||"":"",
+        note?note.cap||"":"",
+        "",
+        c.issuer||"",c.coupon||"",c.barrier||"",c.tenor||"",c.cf||"",c.pr||"",c.lev||"",c.cap||"",c.msg||"",
+        ind.t||""
+      ]);
+    });
+
+    // All client structures (RFQs)
+    rfqs.forEach(ri=>{
+      rows.push([
+        "Structure",
+        ri.cn,
+        ri.notional,
+        ri.status,
+        PT[ri.pt]?.l||"",
+        ri.issuers?.join(", ")||"",
+        ri.und?.join(", ")||"",
+        ri.tenor||"",
+        ri.coup||"",
+        ri.barrier||"",
+        ri.cf||"",
+        ri.btype||"",
+        ri.mem?"Yes":"No",
+        ri.lev||"","",ri.cap||"","",
+        "","","","","","","","",
+        ri.dm||"",
+        ""
+      ]);
+    });
+
+    // Build CSV content
+    const NL="\n";
+    const q=function(v){var s=String(v==null?"":v);if(s.indexOf(",")>=0||s.indexOf("\"")==0||s.length===0)return "\""+s.replace(/\"/g,"\"\"")+"\"";return s;};
+    var csvLines=[];
+    for(var i=0;i<rows.length;i++){csvLines.push(rows[i].map(q).join(","));}
+    var csv=csvLines.join(NL);
+        // Download
+    const blob=new Blob(["﻿"+csv],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download="NoteFlow_"+new Date().toISOString().slice(0,10)+".csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast_("Exported to Excel!");
+  }
+
+  function doStructure(){
+    const r={id:"rfq"+Date.now(),cid:user.id,cn:user.name,ci:user.ini,...rfqF,tc:rfqF.coup?parseFloat(rfqF.coup):null,notional:pm(rfqF.notional),status:"pending",ncPeriod:rfqF.ncPeriod||null,participation:rfqF.participation||null,bespoke:rfqF.bespoke||null,twinWin:rfqF.twinWin||false,twBarrier:rfqF.twBarrier||null,twPart:rfqF.twPart||null};
+    setRfqs(p=>[r,...p]);
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:"u2",title:"New structure — "+PT[rfqF.pt]?.l,body:user.name+" sent structure for "+rfqF.und.join(", ")+" · $"+pm(rfqF.notional).toLocaleString()+" · "+rfqF.tenor,read:false,type:"rfq"},...p]);
+    setConfR(false);setRfqF({issuers:[],und:[],coup:"",barrier:"",cf:"Quarterly",tenor:"1 year",mem:false,notional:"",btype:"European",pt:"autocallable",lev:"",cap:"",ncPeriod:"",participation:"",bespoke:"",twinWin:false,twBarrier:"",twPart:""});
+    toast_("structure sent!");setTab("orders");
+  }
+  function doPost(){
+    if(!newN.issuer)return;
+    const n={id:"n"+Date.now(),issuer:newN.issuer,ticker:newN.issuer.slice(0,2).toUpperCase(),und:newN.und.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean),pt:newN.pt,coupon:newN.coupon?parseFloat(newN.coupon):null,barrier:newN.barrier?parseFloat(newN.barrier):null,cf:nCF(newN.pt)?newN.cf:null,tenor:newN.tenor,mem:nM(newN.pt)?newN.mem:false,isNew:true,status:"active",cm:null,pr:newN.pr?parseFloat(newN.pr):null,pl:newN.pl?parseFloat(newN.pl):null,lev:newN.lev?parseFloat(newN.lev):null,cap:newN.cap?parseFloat(newN.cap):null};
+    setNotes(p=>[n,...p]);
+    setNewN({pt:"autocallable",issuer:"",und:"",coupon:"",barrier:"30",cf:"Quarterly",tenor:"1 year",mem:false,pr:"",pl:"100",lev:"",cap:""});
+    toast_("Indicative terms published!");
+  }
+  function doPrice(){
+    if(!pf.coupon)return;
+    setRfqs(p=>p.map(r=>r.id===priceR.id?{...r,status:"priced",dc:parseFloat(pf.coupon),db:pf.barrier?parseFloat(pf.barrier):null,dm:pf.msg}:r));
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:priceR.cid,title:"Structure priced — "+PT[priceR.pt]?.l,body:"Desk offered "+pf.coupon+"%"+(pf.barrier?" / "+pf.barrier+"% barrier":"")+(pf.msg?" — "+pf.msg:""),read:false,type:"priced"},...p]);
+    setPriceR(null);setPf({coupon:"",barrier:"",msg:""});toast_("Pricing sent!");
+  }
+  function deskAcc(id, accType, msg){
+    const ind=inds.find(i=>i.id===id);
+    const note=notes.find(n=>n.id===ind?.nid);
+    const isClosing=accType==="closing";
+
+    // Update indication with accType so client can see the status
+    setInds(p=>p.map(i=>i.id===id?{...i,st:"accepted",accType:accType||"open",accMsg:msg||null}:i));
+
+    // Notification — specific message per type
+    const notifTitle = isClosing
+      ?"🔔 Confirmed — striking today"
+      :"📋 Accepted — note remains open";
+    const notifBody = isClosing
+      ?"Your $"+ind.amt.toLocaleString()+" indication on "+note?.issuer+" ("+note?.und.join(", ")+") is confirmed. The note strikes at today's market close."+(msg?" "+msg:"")
+      :"Your $"+ind.amt.toLocaleString()+" indication on "+note?.issuer+" ("+note?.und.join(", ")+") has been accepted. The note remains open and will strike at a future date."+(msg?" The desk says: "+msg:"")+" You will be notified when the strike date is confirmed.";
+
+    if(ind) setNotifs(p=>[{
+      id:"nt"+Date.now(),uid:ind.cid,
+      title:notifTitle,body:notifBody,
+      read:false,type:"accepted"
+    },...p]);
+
+    // Close ALL desk modals and show a clear toast
+    setAcceptModal(null);
+    const toastMsg = isClosing
+      ? "🔔 Striking today — client notified"
+      : "📋 Accepted — client notified, note remains open";
+    toast_(toastMsg);
+  }
+  function closeOpenNote(id, msg){
+    const ind=inds.find(i=>i.id===id);
+    const note=notes.find(n=>n.id===ind?.nid);
+    // Upgrade from open to closing
+    setInds(p=>p.map(i=>i.id===id?{...i,accType:"closing",accMsg:msg||ind?.accMsg||null}:i));
+    setNotifs(p=>[{
+      id:"nt"+Date.now(),uid:ind?.cid,
+      title:"🔔 Your note is striking today",
+      body:"Your $"+ind?.amt?.toLocaleString()+" indication on "+note?.issuer+" ("+note?.und?.join(", ")+") is now confirmed. The note strikes at today's market close."+(msg?" "+msg:""),
+      read:false,type:"accepted"
+    },...p]);
+    setCloseOpenModal(null);
+    toast_("🔔 Client notified — striking today");
+  }
+
+  function deskPass(id){
+    const ind=inds.find(i=>i.id===id);const note=notes.find(n=>n.id===ind?.nid);
+    setInds(p=>p.map(i=>i.id===id?{...i,st:"passed"}:i));
+    if(ind)setNotifs(p=>[{id:"nt"+Date.now(),uid:ind.cid,title:"Indication passed — "+note?.issuer,body:"The desk passed on your $"+ind.amt.toLocaleString()+" indication on "+note?.issuer+".",read:false,type:"passed"},...p]);
+    toast_("Passed.");
+  }
+  function doCounter(){
+    const hasAny=cf2.issuer||cf2.coupon||cf2.barrier||cf2.tenor||cf2.cf||cf2.btype||cf2.mem!==null||cf2.pr||cf2.lev||cf2.cap||cf2.strike;
+    if(!hasAny)return;
+    const ind=ctrInd;const note=notes.find(n=>n.id===ind.nid);
+    const parts=[
+      cf2.issuer&&"via "+cf2.issuer,
+      cf2.coupon&&cf2.coupon+"% coupon",
+      cf2.barrier&&cf2.barrier+"% barrier",
+      cf2.btype&&cf2.btype+" barrier",
+      cf2.tenor&&cf2.tenor+" tenor",
+      cf2.cf&&cf2.cf+" observations",
+      cf2.mem!==null&&(cf2.mem?"memory on":"memory off"),
+      cf2.pr&&cf2.pr+"% participation",
+      cf2.lev&&cf2.lev+"× leverage",
+      cf2.cap&&cf2.cap+"% cap",
+      cf2.strike&&cf2.strike+"% strike",
+    ].filter(Boolean);
+    const counter={
+      issuer:cf2.issuer||null,
+      coupon:cf2.coupon||null, barrier:cf2.barrier||null, btype:cf2.btype||null,
+      tenor:cf2.tenor||null, cf:cf2.cf||null, mem:cf2.mem,
+      pr:cf2.pr||null, lev:cf2.lev||null, cap:cf2.cap||null,
+      strike:cf2.strike||null, msg:cf2.msg||null
+    };
+    setInds(p=>p.map(i=>i.id===ind.id?{...i,st:"countered",counter}:i));
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:ind.cid,title:"↔ Counter-terms — "+note?.issuer,body:"Desk can offer: "+parts.join(" · ")+(cf2.msg?" — "+cf2.msg:"")+" · Please accept or decline.",read:false,type:"counter"},...p]);
+    setCtrInd(null);
+    setCf2({issuer:"",coupon:"",barrier:"",tenor:"",cf:"",btype:"",mem:null,pr:"",lev:"",cap:"",strike:"",msg:""});
+    toast_("Counter-terms sent!");
+  }
+  function clientReCounter(id){
+    const ind=inds.find(i=>i.id===id);
+    const note=notes.find(n=>n.id===ind?.nid);
+    // Pre-fill rcf with desk's last counter terms
+    const c=ind?.counter||{};
+    setRcf({coupon:c.coupon||"",barrier:c.barrier||"",tenor:c.tenor||"",cf:c.cf||"",btype:c.btype||"European",mem:c.mem!==null?c.mem:null,pr:c.pr||"",lev:c.lev||"",cap:c.cap||"",strike:c.strike||"",msg:""});
+    setReCounterModal({id,ind,note});
+  }
+
+  function submitReCounter(id){
+    const ind=inds.find(i=>i.id===id);
+    const note=notes.find(n=>n.id===ind?.nid);
+    const hasAny=rcf.coupon||rcf.barrier||rcf.tenor||rcf.cf||rcf.btype||rcf.mem!==null||rcf.pr||rcf.lev||rcf.cap||rcf.strike;
+    if(!hasAny) return;
+    const newEntry={by:"client",coupon:rcf.coupon||null,barrier:rcf.barrier||null,tenor:rcf.tenor||null,cf:rcf.cf||null,btype:rcf.btype||null,mem:rcf.mem,pr:rcf.pr||null,lev:rcf.lev||null,cap:rcf.cap||null,strike:rcf.strike||null,msg:rcf.msg||null,t:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})};
+    setInds(p=>p.map(i=>i.id===id?{...i,
+      st:"recountered",
+      clientCounter:{...rcf},
+      counterHistory:[...(i.counterHistory||[]),newEntry]
+    }:i));
+    // Notify desk
+    const parts=[rcf.coupon&&rcf.coupon+"% coupon",rcf.barrier&&rcf.barrier+"% barrier",rcf.tenor&&rcf.tenor].filter(Boolean);
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:"u2",title:"↔ Client re-countered — "+note?.issuer,body:ind.cn+" proposed: "+parts.join(" · ")+(rcf.msg?" — "+rcf.msg:""),read:false,type:"counter"},...p]);
+    setReCounterModal(null);
+    setRcf({coupon:"",barrier:"",tenor:"",cf:"",btype:"",mem:null,pr:"",lev:"",cap:"",strike:"",msg:""});
+    toast_("Re-counter sent to desk");
+  }
+
+  function clientCtr(id,action){
+    const ind=inds.find(i=>i.id===id);const note=notes.find(n=>n.id===ind?.nid);
+    const newSt=action==="accept"?"accepted":"passed";
+    const newEntry={by:"client",action,t:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})};
+    setInds(p=>p.map(i=>i.id===id?{...i,st:newSt,counterHistory:[...(i.counterHistory||[]),newEntry]}:i));
+    setNotifs(p=>[{id:"nt"+Date.now(),uid:"u2",title:(action==="accept"?"✓ Counter accepted":"Counter declined")+" — "+note?.issuer,body:user.name+(action==="accept"?" accepted":" declined")+" counter-terms for $"+ind?.amt.toLocaleString()+" on "+note?.issuer,read:false,type:action==="accept"?"accepted":"passed"},...p]);
+    toast_(action==="accept"?"Accepted!":"Declined.");
+  }
+  function doClose(){
+    const cn=notes.find(n=>n.id===closeN.id);
+    setNotes(p=>p.map(n=>n.id===closeN.id?{...n,status:"closing",cm:closeMsg||null}:n));
+    const pend=[...new Set(inds.filter(i=>i.nid===closeN.id&&i.st==="pending").map(i=>i.cid))];
+    pend.forEach(cid=>setNotifs(p=>[{id:"nt"+Date.now()+cid,uid:cid,title:"🔴 Closing today — "+closeN.issuer,body:closeN.issuer+" ("+cn?.und.join(", ")+") is closing at today's strike."+(closeMsg?" "+closeMsg:" Please confirm your indication stands."),read:false,type:"closing"},...p]));
+    setCloseN(null);setCloseMsg("");toast_("Clients notified!");
+  }
+  function rfqRsp(id,a){
+    const ri=rfqs.find(r=>r.id===id);
+    setRfqs(p=>p.map(r=>r.id===id?{...r,status:a}:r));
+    if(ri)setNotifs(p=>[{id:"nt"+Date.now(),uid:"u2",title:(a==="accepted"?"✓ structure accepted":"structure declined"),body:user.name+(a==="accepted"?" accepted":" declined")+" desk terms on "+ri.und?.join(", "),read:false,type:a},...p]);
+    toast_(a==="accepted"?"Accepted!":"Rejected.");
+  }
+
+  const vc={c:"#F59E0B",bg:"rgba(255,179,71,.07)",bd:"rgba(255,179,71,.2)",l:"Moderate vol"};
+
+  if(splash) return h("div",{className:"splash"+(splashOut?" out":"")},
+
+    // Breathing glow behind logo
+    h("div",{style:{
+      position:"absolute",width:320,height:320,borderRadius:"50%",
+      background:"radial-gradient(circle,rgba(14,165,233,.15) 0%,rgba(109,86,245,.08) 45%,transparent 70%)",
+      top:"50%",left:"50%",
+      animation:"glowPulse 3s ease-in-out infinite"
+    }}),
+
+    // Faint grid
+    h("div",{style:{
+      position:"absolute",inset:0,
+      backgroundImage:"linear-gradient(rgba(14,165,233,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.025) 1px,transparent 1px)",
+      backgroundSize:"44px 44px"
+    }}),
+
+    // Content — logo is the hero, text below is secondary
+    h("div",{style:{position:"relative",display:"flex",flexDirection:"column",alignItems:"center",gap:0}},
+
+      // ── THE ANIMATED LOGO ─────────────────────────────────────────
+      // Static container — logo stays centred, motion is all internal
+      h("div",{style:{marginBottom:32}},
+        h(SailAnimated,{sz:120})
+      ),
+
+      // ── TEXT ──────────────────────────────────────────────────────
+      h("div",{className:"name-reveal",style:{
+        fontSize:30,fontWeight:800,letterSpacing:"-.5px",color:"#fff",textAlign:"center"
+      }},"NoteFlow"),
+
+      
+
+      // ── DOTS ──────────────────────────────────────────────────────
+      h("div",{className:"water-lines"},h("span"),h("span"),h("span"),h("span"))
+    )
+  );
+
+  if(!user) return h("div",{className:"login"},
+    h("div",{style:{width:"100%",maxWidth:360}},
+
+      // Logo + title
+      h("div",{style:{textAlign:"center",marginBottom:24}},
+        h("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:9,marginBottom:7}},h(Sail,{sz:52})),
+        h("div",{style:{fontSize:22,fontWeight:800,letterSpacing:"-.5px"}},"NoteFlow"),
+        h("div",{style:{fontSize:13,color:"rgba(255,255,255,.42)",marginTop:4}},"Structured Notes Distribution")
+      ),
+
+      // Mode toggle
+      h("div",{style:{display:"flex",gap:3,background:"rgba(255,255,255,.05)",borderRadius:10,padding:4,marginBottom:16}},
+        [{k:"login",l:"Sign In"},{k:"signup",l:"Create Account"}].map(t=>
+          h("button",{key:t.k,onClick:()=>{setMode(t.k);setLerr("");},style:{
+            flex:1,padding:"8px",borderRadius:7,border:"none",cursor:"pointer",
+            fontWeight:700,fontSize:12,transition:"all .15s",
+            background:mode===t.k?"linear-gradient(135deg,#0EA5E9,#6D56F5)":"transparent",
+            color:mode===t.k?"#fff":"rgba(255,255,255,.4)"
+          }},t.l)
+        )
+      ),
+
+      h("div",{className:"lcard"},
+
+        // ── LOGIN MODE ──────────────────────────────────────────────
+        mode==="login"&&h("div",null,
+          h("div",{style:{fontSize:16,fontWeight:700,marginBottom:3}},"Welcome back"),
+          h("div",{style:{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16}},"Sign in to access the platform"),
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("path",{d:"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"}),h("polyline",{points:"22,6 12,13 2,6"})),
+            h("input",{value:em,onChange:v=>setEm(v.target.value),placeholder:"your@email.com",onKeyDown:v=>v.key==="Enter"&&doLogin()})
+          ),
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("rect",{x:3,y:11,width:18,height:11,rx:2,ry:2}),h("path",{d:"M7 11V7a5 5 0 0 1 10 0v4"})),
+            h("input",{type:"password",value:pw,onChange:v=>setPw(v.target.value),placeholder:"••••••••",onKeyDown:v=>v.key==="Enter"&&doLogin()})
+          ),
+          lerr&&h("div",{style:{background:"rgba(255,107,107,.1)",border:"1px solid rgba(255,107,107,.3)",borderRadius:8,padding:"8px 11px",color:"#F43F5E",fontSize:12,marginBottom:10}},lerr),
+          h("button",{onClick:doLogin,disabled:loading,style:{width:"100%",padding:12,borderRadius:11,border:"none",background:"linear-gradient(135deg,#0EA5E9,#6D56F5)",color:"#fff",fontWeight:800,fontSize:14,cursor:"pointer",opacity:loading?.7:1}},loading?"Signing in...":"Sign In"),
+          h("div",{style:{textAlign:"center",marginTop:10,marginBottom:8,fontSize:10,fontWeight:700,
+            color:"#10B981"}},
+            "✓ Connected to Supabase"
+          ),
+          h("div",{className:"demobox"},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.4)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Demo accounts — tap to fill"),
+            [{l:"Client",em:"james@wealth.com",c:"#0EA5E9"},{l:"Desk",em:"desk@gs.com",c:"#6D56F5"}].map(d=>
+              h("div",{key:d.l,className:"demorow",onClick:()=>{setEm(d.em);setPw("demo123");}},
+                h("div",{style:{display:"flex",alignItems:"center",gap:7}},
+                  h("span",{style:{background:d.c+"22",color:d.c,fontSize:10,fontWeight:700,padding:"2px 7px",borderRadius:20,border:"1px solid "+d.c+"44"}},d.l),
+                  h("span",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},d.em)
+                ),
+                h("span",{style:{color:"rgba(255,255,255,.35)"}},"›")
+              )
+            )
+          )
+        ),
+
+        // ── SIGNUP MODE ─────────────────────────────────────────────
+        mode==="signup"&&h("div",null,
+          h("div",{style:{fontSize:16,fontWeight:700,marginBottom:3}},"Create your account"),
+          h("div",{style:{fontSize:13,color:"rgba(255,255,255,.4)",marginBottom:16}},"You need an access code from your administrator"),
+
+          // Full name
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("path",{d:"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"}),h("circle",{cx:12,cy:7,r:4})),
+            h("input",{value:fullName,onChange:v=>setFullName(v.target.value),placeholder:"Full name"})
+          ),
+
+          // Email
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("path",{d:"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"}),h("polyline",{points:"22,6 12,13 2,6"})),
+            h("input",{value:em,onChange:v=>setEm(v.target.value),placeholder:"your@email.com"})
+          ),
+
+          // Password
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("rect",{x:3,y:11,width:18,height:11,rx:2,ry:2}),h("path",{d:"M7 11V7a5 5 0 0 1 10 0v4"})),
+            h("input",{type:"password",value:pw,onChange:v=>setPw(v.target.value),placeholder:"Password (min 8 chars)"})
+          ),
+
+          // Confirm password
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("rect",{x:3,y:11,width:18,height:11,rx:2,ry:2}),h("path",{d:"M7 11V7a5 5 0 0 1 10 0v4"})),
+            h("input",{type:"password",value:confirmPw,onChange:v=>setConfirmPw(v.target.value),placeholder:"Confirm password"})
+          ),
+
+          // Role selector
+          h("div",{style:{marginBottom:12}},
+            h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",marginBottom:6,fontWeight:600}},"I am a:"),
+            h("div",{style:{display:"flex",gap:7}},
+              [{v:"client",l:"Client",c:"#0EA5E9"},{v:"desk",l:"Desk / Broker",c:"#6D56F5"}].map(r=>
+                h("button",{key:r.v,onClick:()=>setSignupRole(r.v),style:{
+                  flex:1,padding:"8px",borderRadius:9,border:"1px solid",cursor:"pointer",fontSize:12,fontWeight:700,
+                  borderColor:signupRole===r.v?r.c:"rgba(255,255,255,.1)",
+                  background:signupRole===r.v?r.c+"18":"transparent",
+                  color:signupRole===r.v?r.c:"rgba(255,255,255,.4)"
+                }},r.l)
+              )
+            )
+          ),
+
+          // Invite code
+          h("div",{className:"lfield"},
+            h("svg",{width:14,height:14,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("path",{d:"M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"})),
+            h("input",{value:inviteCode,onChange:v=>setInviteCode(v.target.value.toUpperCase()),placeholder:"Access code from your administrator"})
+          ),
+
+          lerr&&h("div",{style:{background:"rgba(255,107,107,.1)",border:"1px solid rgba(255,107,107,.3)",borderRadius:8,padding:"8px 11px",color:"#F43F5E",fontSize:12,marginBottom:10}},lerr),
+
+          h("button",{onClick:doSignup,disabled:loading,style:{width:"100%",padding:12,borderRadius:11,border:"none",background:"linear-gradient(135deg,#10B981,#0EA5E9)",color:"#fff",fontWeight:800,fontSize:14,cursor:"pointer",opacity:loading?.7:1}},loading?"Creating account...":"Create Account"),
+
+          h("div",{style:{marginTop:12,padding:"10px 12px",background:"rgba(255,179,71,.05)",border:"1px solid rgba(255,179,71,.15)",borderRadius:9,fontSize:11,color:"rgba(255,255,255,.4)",lineHeight:1.6}},
+            h("strong",{style:{color:"#F59E0B",display:"block",marginBottom:3}},"Need an access code?"),
+            "Contact your administrator to receive your access code before creating an account."
+          )
+        )
+      ),
+
+      h("div",{style:{marginTop:13,padding:"10px 13px",background:"rgba(255,179,71,.05)",border:"1px solid rgba(255,179,71,.18)",borderRadius:11,fontSize:11,color:"rgba(255,255,255,.38)",lineHeight:1.6}},
+        h("strong",{style:{color:"#F59E0B"}},"Regulatory:")," Non-binding indications only. Not a broker-dealer."
+      )
+    )
+  );
+
+  return h("div",{className:"app"},
+    h("div",{className:"hdr"},
+      h("div",{style:{display:"flex",alignItems:"center",gap:8}},h("div",{className:"logo"},h(Sail,{sz:26}),"NoteFlow"),isDesk&&h("span",{className:"dbdg"},"DESK")),
+      h("div",{className:"hright"},
+        h("button",{className:"nbtn",onClick:()=>{setShowN(!showN);if(!showN&&unread>0){const ids=new Set(myN.map(n=>n.id));setNotifs(p=>p.map(n=>ids.has(n.id)?{...n,read:true}:n));}}},
+          h("svg",{width:17,height:17,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round"},h("path",{d:"M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"}),h("path",{d:"M13.73 21a2 2 0 0 1-3.46 0"})),
+          unread>0&&h("span",{className:"nbdg"},unread>9?"9+":unread)
+        ),
+        h("button",{
+          onClick:()=>setUser(null),
+          title:"Sign out",
+          style:{
+            display:"flex",alignItems:"center",gap:6,
+            background:"rgba(255,255,255,.06)",
+            border:"1px solid rgba(255,255,255,.1)",
+            borderRadius:20,
+            padding:"4px 10px 4px 5px",
+            cursor:"pointer",
+            color:"#fff"
+          }
+        },
+          h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#6D56F5,#0EA5E9)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,fontWeight:800,color:"#fff",flexShrink:0}},user.ini),
+          h("span",{style:{fontSize:10,fontWeight:600,color:"rgba(255,255,255,.6)"}},"Sign out")
+        )
+      )
+    ),
+    h("div",{className:"body"},
+      showN&&h("div",{className:"notifdraw"},
+        h("div",{className:"notifh"},h("span",null,"Notifications"),h("span",{style:{fontSize:10,color:"rgba(255,255,255,.4)"}},isDesk?"Desk":"Client")),
+        myN.length===0?h("div",{style:{padding:"18px 14px",color:"rgba(255,255,255,.4)",fontSize:13,textAlign:"center"}},"No notifications yet")
+        :myN.slice(0,10).map((n,i)=>{
+          const dc=n.type==="accepted"?"#10B981":n.type==="closing"?"#F43F5E":n.type==="passed"||n.type==="counter"?"#F59E0B":"#0EA5E9";
+          return h("div",{key:n.id||i,className:"notifi",style:{background:n.read?"transparent":"rgba(0,198,255,.03)"}},
+            !n.read&&h("div",{className:"ndot",style:{background:dc}}),
+            h("div",null,h("div",{className:"ntit",style:{color:n.type==="accepted"?"#10B981":n.type==="closing"?"#F43F5E":"#fff"}},n.title),h("div",{className:"nbody"},n.body))
+          );
+        })
+      ),
+      h("div",{className:"greet",onClick:()=>showN&&setShowN(false)},
+        h("h2",null,"Good morning, "+user.name.split(" ")[0]+" 👋"),
+        h("p",null,isDesk?(inds.filter(i=>i.st==="pending").length+rfqs.filter(r=>r.status==="pending").length)+" pending · "+(inds.filter(i=>i.st==="accepted").length+rfqs.filter(r=>r.status==="accepted").length)+" accepted today":myI.length+rfqs.filter(r=>r.cid===user.id).length+" structures built · "+(myI.filter(i=>i.st==="countered").length+rfqs.filter(r=>r.cid===user.id&&r.status==="priced").length)+" awaiting your response")
+      ),
+      h("div",{className:"stats"},
+        (isDesk?[
+    {l:"Received",v:inds.length+rfqs.length,c:"#0EA5E9",tip:"All time"},
+    {l:"Pending",v:inds.filter(i=>i.st==="pending").length+rfqs.filter(r=>r.status==="pending").length,c:"#F59E0B",tip:"Needs response"},
+    {l:"Resolved",v:inds.filter(i=>i.st==="accepted"||i.st==="passed").length+rfqs.filter(r=>r.status==="accepted"||r.status==="passed").length,c:"#10B981",tip:"Accepted or passed"}
+  ]:[
+    {l:"My Structures",v:myI.length+rfqs.filter(r=>r.cid===user.id).length,c:"#fff",tip:"",action:()=>setTab("orders")},
+    {l:"Awaiting desk",v:rfqs.filter(r=>r.cid===user.id&&r.status==="pending").length+myI.filter(i=>i.st==="pending").length,c:"#F59E0B",tip:"",action:()=>setTab("orders")},
+    {l:"Countered",v:myI.filter(i=>i.st==="countered").length+rfqs.filter(r=>r.cid===user.id&&r.status==="priced").length,c:"#0EA5E9",tip:"",action:()=>setTab("orders")}
+  ]).map((s,i)=>
+          h("div",{key:i,className:"stat",onClick:s.action||null,style:{cursor:s.action?"pointer":"default"}},
+            h("div",{className:"sv",style:{color:s.c}},s.v),
+            h("div",{className:"sl"},s.l),
+            h("div",{style:{fontSize:8,color:"rgba(255,255,255,.2)",marginTop:3}},s.tip||"")
+          )
+        )
+    
+      ),
+      h("div",{className:"vix",style:{background:vc.bg,border:"1px solid "+vc.bd}},
+        h("div",{className:"vrow"},h("div",{className:"vlft"},h("div",{className:"vdot",style:{background:vc.c}}),h("span",{className:"vlbl",style:{color:vc.c}},"VIX 21.3"),h("span",{className:"vpill",style:{color:vc.c,background:vc.c+"18",border:"1px solid "+vc.c+"33"}},vc.l)),h("span",{style:{fontSize:9,color:"rgba(255,255,255,.38)"}},"Live · 10:32 AM")),
+        h("div",{className:"vtrk"},h("div",{className:"vbar",style:{width:"43%",background:vc.c}})),
+        h("div",{className:"vins"},"Moderate vol — balanced terms, good structuring conditions")
+      ),
+      h("div",{className:"lgd"},
+        h("div",{className:"lgdt"},"How to read the cards"),
+        h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px 18px"}},
+
+          // LEFT — stripe color = product family
+          h("div",null,
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:7}},"Stripe — product family"),
+
+            // Redemption structures
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.28)",letterSpacing:".4px",marginBottom:4,fontStyle:"italic"}},"Redemption structures"),
+            ...[{l:"Autocallable",c:"#0EA5E9",sub:"Auto-triggers on observation date"},{l:"Issuer Callable",c:"#6D56F5",sub:"Desk calls at its discretion"}].map(v=>
+              h("div",{key:v.l,style:{display:"flex",alignItems:"flex-start",gap:6,marginBottom:6}},
+                h("div",{style:{width:3,height:14,borderRadius:2,background:v.c,flexShrink:0,marginTop:2}}),
+                h("div",null,
+                  h("div",{style:{fontSize:11,color:"rgba(255,255,255,.7)",fontWeight:600}},v.l),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.32)",marginTop:1}},v.sub)
+                )
+              )
+            ),
+
+            // Leveraged growth — separated clearly from redemption
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.28)",letterSpacing:".4px",marginBottom:4,marginTop:7,fontStyle:"italic"}},"Leveraged growth"),
+            ...[{l:"Participation",c:"#10B981",sub:"Principal protected, amplified upside"},{l:"Catapult / Booster",c:"#F43F5E",sub:"Amplified upside, barrier downside"}].map(v=>
+              h("div",{key:v.l,style:{display:"flex",alignItems:"flex-start",gap:6,marginBottom:6}},
+                h("div",{style:{width:3,height:14,borderRadius:2,background:v.c,flexShrink:0,marginTop:2}}),
+                h("div",null,
+                  h("div",{style:{fontSize:11,color:"rgba(255,255,255,.7)",fontWeight:600}},v.l),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.32)",marginTop:1}},v.sub)
+                )
+              )
+            )
+          ),
+
+          // RIGHT — badge = principal treatment
+          h("div",null,
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:7}},"Badge — principal"),
+            ...[
+              {c:"#10B981",l:"Principal guaranteed",sub:"100% back regardless of performance"},
+              {c:"#F59E0B",l:"Barrier protected",sub:"Protected if underlying stays above barrier at maturity"},
+              {c:"#0EA5E9",l:"Conditional coupon",sub:"Coupon paid when observation conditions are met"},
+            ].map(b=>
+              h("div",{key:b.l,style:{display:"flex",alignItems:"flex-start",gap:7,marginBottom:8}},
+                h("div",{style:{width:7,height:7,borderRadius:"50%",background:b.c,flexShrink:0,marginTop:3}}),
+                h("div",null,
+                  h("div",{style:{fontSize:11,fontWeight:700,color:b.c}},b.l),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.32)",lineHeight:1.4,marginTop:1}},b.sub)
+                )
+              )
+            )
+          )
+        )
+      ),
+      !isDesk&&h("div",{className:"tabs"},[{k:"build",l:"Build"},{k:"orders",l:"My Structures"},{k:"history",l:"Past Notes"},{k:"learn",l:"Learn"}].map(t=>h("button",{key:t.k,className:"tab"+(tab===t.k?" on":""),onClick:()=>setTab(t.k)},t.l))),
+      toast&&h("div",{className:"toast"},"✓ ",toast),
+
+      // BROWSE
+      !isDesk&&      tab==="build"&&h("div",{style:{paddingBottom:20}},
+
+        // ── BANNER ───────────────────────────────────────────────────
+        h("div",{style:{
+          background:"linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(109,86,245,.06) 100%)",
+          border:"1px solid rgba(14,165,233,.18)",borderRadius:14,
+          padding:"16px 16px 14px",marginBottom:20,position:"relative",overflow:"hidden"
+        }},
+          h("div",{style:{position:"absolute",top:-20,right:-20,width:100,height:100,borderRadius:"50%",background:"rgba(14,165,233,.06)"}}),
+          h("div",{style:{fontSize:18,fontWeight:900,letterSpacing:"-.5px",marginBottom:5,color:"#fff"}},"Build your structure"),
+          h("div",{style:{fontSize:12,color:"rgba(255,255,255,.45)",lineHeight:1.65}},"Start with a base, then layer on any features. Non-binding until the desk confirms.")
+        ),
+
+        // ── STEP 1: BASE STRUCTURE ────────────────────────────────────
+        h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12}},
+          h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#0EA5E9,#6D56F5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#fff",flexShrink:0}},"1"),
+          h("div",null,
+            h("div",{style:{fontSize:12,fontWeight:800,color:"#fff"}},"Base structure"),
+            h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)"}},"The redemption mechanic at the core of the note")
+          )
+        ),
+        h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:20}},
+          [
+            {k:"autocallable",  l:"Autocallable",      s:"Auto-triggers on observation dates if barrier not breached",         c:"#0EA5E9"},
+            {k:"callable",      l:"Issuer Callable",   s:"Desk calls at its discretion — no fixed observation schedule",      c:"#6D56F5"},
+            {k:"participation", l:"Participation",     s:"Capital-protected leveraged upside — no call mechanic",             c:"#10B981"},
+            {k:"protected",     l:"Capital Protected", s:"100% principal guaranteed at maturity via zero-coupon overlay",     c:"#2563EB"},
+          ].map(v=>
+            h("button",{key:v.k,onClick:()=>setRfqF(r=>({...r,pt:v.k})),style:{
+              display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
+              borderRadius:11,border:"1px solid",textAlign:"left",cursor:"pointer",
+              borderColor:rfqF.pt===v.k?v.c:"rgba(255,255,255,.08)",
+              background:rfqF.pt===v.k?v.c+"12":"rgba(255,255,255,.03)",
+              transition:"all .15s",position:"relative",overflow:"hidden"
+            }},
+              rfqF.pt===v.k&&h("div",{style:{position:"absolute",left:0,top:0,bottom:0,width:3,background:v.c,borderRadius:"11px 0 0 11px"}}),
+              h("div",{style:{width:36,height:36,borderRadius:10,background:v.c+"18",border:"1px solid "+v.c+"30",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+                h("div",{style:{width:12,height:12,borderRadius:3,background:v.c}})
+              ),
+              h("div",{style:{flex:1}},
+                h("div",{style:{fontSize:13,fontWeight:800,color:rfqF.pt===v.k?v.c:"rgba(255,255,255,.75)",marginBottom:2}},v.l),
+                h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)",lineHeight:1.4}},v.s)
+              ),
+              rfqF.pt===v.k&&h("div",{style:{width:20,height:20,borderRadius:"50%",background:v.c,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+                h("svg",{width:10,height:10,viewBox:"0 0 24 24",fill:"none",stroke:"#fff",strokeWidth:3,strokeLinecap:"round"},h("polyline",{points:"20 6 9 17 4 12"}))
+              )
+            )
+          )
+        ),
+
+        // ── STEP 2: PREFERRED ISSUERS ─────────────────────────────────
+        h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12}},
+          h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#0EA5E9,#6D56F5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#fff",flexShrink:0}},"2"),
+          h("div",null,
+            h("div",{style:{fontSize:12,fontWeight:800,color:"#fff"}},"Preferred issuers"),
+            h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)"}},"Select one or more banks to price this")
+          )
+        ),
+        h("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginBottom:20}},
+          ISSUERS.map(iss=>h("button",{key:iss,onClick:()=>setRfqF(r=>({...r,issuers:r.issuers.includes(iss)?r.issuers.filter(i=>i!==iss):[...r.issuers,iss]})),style:{
+            padding:"6px 12px",borderRadius:20,border:"1px solid",cursor:"pointer",fontSize:11,fontWeight:700,transition:"all .15s",
+            borderColor:rfqF.issuers.includes(iss)?"#0EA5E9":"rgba(255,255,255,.1)",
+            background:rfqF.issuers.includes(iss)?"rgba(14,165,233,.12)":"transparent",
+            color:rfqF.issuers.includes(iss)?"#0EA5E9":"rgba(255,255,255,.4)"
+          }},iss))
+        ),
+
+        // ── STEP 3: UNDERLYINGS ───────────────────────────────────────
+        h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12}},
+          h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#0EA5E9,#6D56F5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#fff",flexShrink:0}},"3"),
+          h("div",null,
+            h("div",{style:{fontSize:12,fontWeight:800,color:"#fff"}},"Underlyings"),
+            h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)"}},"Search any ticker — up to 8")
+          )
+        ),
+        rfqF.und.length>0&&h("div",{className:"seltks",style:{marginBottom:8}},rfqF.und.map(u=>h("div",{key:u,className:"seltk"},h("span",null,u),h("button",{onClick:()=>setRfqF(r=>({...r,und:r.und.filter(x=>x!==u)})),style:{background:"none",border:"none",cursor:"pointer",color:"rgba(16,185,129,.5)",fontSize:15,padding:0,lineHeight:1}},"×")))),
+        h("div",{className:"srchwrap"},
+          h("div",{className:"srchi"+(tks?" act":"")},
+            tkLoad?h("span",{style:{color:"#10B981",fontSize:12}},"⟳"):h("svg",{width:13,height:13,viewBox:"0 0 24 24",fill:"none",stroke:"rgba(255,255,255,.4)",strokeWidth:2,strokeLinecap:"round"},h("circle",{cx:11,cy:11,r:8}),h("line",{x1:21,y1:21,x2:16.65,y2:16.65})),
+            h("input",{value:tks,onChange:v=>setTks(v.target.value.toUpperCase()),onKeyDown:v=>v.key==="Enter"&&tks&&addUnd(tks),placeholder:"Search AAPL, SPY, BNP.PA, SX5E…"})
+          ),
+          tkRes.length>0&&h("div",{className:"srchdrop"},tkRes.map(r=>h("div",{key:r.s,className:"srchrow",onClick:()=>addUnd(r.s)},h("div",{style:{display:"flex",alignItems:"center",gap:8}},h("span",{style:{fontWeight:800,fontSize:13,minWidth:52}},r.s),h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},r.n)),h("span",{style:{fontSize:9,fontWeight:700,background:"rgba(16,185,129,.1)",color:"#10B981",padding:"2px 5px",borderRadius:4}},r.t))))
+        ),
+        h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Popular"),
+        h("div",{className:"poprow",style:{marginBottom:20}},POPULAR.filter(t=>!rfqF.und.includes(t)).slice(0,12).map(t=>h("button",{key:t,className:"poptk",onClick:()=>addUnd(t)},"+",t))),
+
+        // ── STEP 4: CORE TERMS ────────────────────────────────────────
+        h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12}},
+          h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#0EA5E9,#6D56F5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#fff",flexShrink:0}},"4"),
+          h("div",null,
+            h("div",{style:{fontSize:12,fontWeight:800,color:"#fff"}},"Core terms"),
+            h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)"}},"Notional, tenor, and primary structure parameters")
+          )
+        ),
+        h("div",{style:{background:"rgba(255,255,255,.03)",border:"1px solid rgba(255,255,255,.08)",borderRadius:12,padding:"14px",marginBottom:8}},
+          h("div",{className:"two"},
+            h(FG,{label:"Notional (USD)"},h("input",{className:"fi",value:rfqF.notional,onChange:v=>setRfqF(r=>({...r,notional:v.target.value})),placeholder:"e.g. 5,000,000"})),
+            h(FG,{label:"Tenor"},h("select",{className:"fsel",value:rfqF.tenor,onChange:v=>setRfqF(r=>({...r,tenor:v.target.value}))},TENORS.map(o=>h("option",{key:o},o))))
+          ),
+          // Coupon — autocallable, callable, protected
+          nC(rfqF.pt)&&h("div",{className:"two"},
+            h(FG,{label:"Target coupon (% p.a.)"},h("input",{className:"fi",value:rfqF.coup,onChange:v=>setRfqF(r=>({...r,coup:v.target.value})),placeholder:"e.g. 8.00"})),
+            h(FG,{label:"Barrier (%)"},h("input",{className:"fi",value:rfqF.barrier,onChange:v=>setRfqF(r=>({...r,barrier:v.target.value})),placeholder:"e.g. 60"}))
+          ),
+          // Participation — standalone
+          nP(rfqF.pt)&&h("div",{className:"two"},
+            h(FG,{label:"Participation rate (%)"},h("input",{className:"fi",value:rfqF.coup,onChange:v=>setRfqF(r=>({...r,coup:v.target.value})),placeholder:"e.g. 150"})),
+            h(FG,{label:"Protection level (%)"},h("input",{className:"fi",value:rfqF.barrier||"100",onChange:v=>setRfqF(r=>({...r,barrier:v.target.value})),placeholder:"100"}))
+          ),
+          // Barrier type for callable structures
+          nB(rfqF.pt)&&h("div",{style:{marginBottom:10}},
+            h("div",{className:"fl"},"Barrier type"),
+            h("div",{style:{display:"flex",gap:7}},
+              [{v:"European",l:"European (at maturity)"},{v:"American",l:"American (daily)"}].map(o=>
+                h("button",{key:o.v,onClick:()=>setRfqF(r=>({...r,btype:o.v})),style:{
+                  flex:1,padding:"8px",borderRadius:9,border:"1px solid",cursor:"pointer",fontSize:11,fontWeight:700,
+                  borderColor:rfqF.btype===o.v?"#F59E0B":"rgba(255,255,255,.1)",
+                  background:rfqF.btype===o.v?"rgba(245,158,11,.09)":"transparent",
+                  color:rfqF.btype===o.v?"#F59E0B":"rgba(255,255,255,.4)"
+                }},o.l)
+              )
+            )
+          ),
+          // Observation frequency
+          nCF(rfqF.pt)&&h(FG,{label:rfqF.pt==="autocallable"?"Observation frequency":"Coupon frequency",mb:0},
+            h("div",{style:{display:"flex",gap:7}},
+              ["Quarterly","Semi-Annual","Annual"].map(o=>
+                h("button",{key:o,onClick:()=>setRfqF(r=>({...r,cf:o})),style:{
+                  flex:1,padding:"9px 4px",borderRadius:9,border:"1px solid",cursor:"pointer",fontSize:10,fontWeight:700,textAlign:"center",
+                  borderColor:rfqF.cf===o?"#0EA5E9":"rgba(255,255,255,.1)",
+                  background:rfqF.cf===o?"rgba(14,165,233,.12)":"transparent",
+                  color:rfqF.cf===o?"#0EA5E9":"rgba(255,255,255,.4)"
+                }},o)
+              )
+            )
+          )
+        ),
+
+        // ── STEP 5: FEATURE OVERLAYS ──────────────────────────────────
+        (rfqF.pt==="autocallable"||rfqF.pt==="callable")&&h("div",null,
+          h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12,marginTop:8}},
+            h("div",{style:{width:22,height:22,borderRadius:"50%",background:"linear-gradient(135deg,#F59E0B,#F43F5E)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#fff",flexShrink:0}},"5"),
+            h("div",null,
+              h("div",{style:{fontSize:12,fontWeight:800,color:"#fff"}},"Feature overlays"),
+              h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)"}},"Layer additional mechanics onto the base structure")
+            )
+          ),
+          h("div",{style:{background:"rgba(255,255,255,.03)",border:"1px solid rgba(255,255,255,.08)",borderRadius:12,padding:"14px"}},
+
+            // Non-call period
+            h(FG,{label:"Non-call period",mb:12},
+              h("select",{className:"fsel",value:rfqF.ncPeriod||"",onChange:v=>setRfqF(r=>({...r,ncPeriod:v.target.value}))},
+                h("option",{value:""},"None — callable from day 1"),
+                ["3 months","6 months","1 year","18 months","2 years"].map(o=>h("option",{key:o,value:o},o+" non-call period"))
+              )
+            ),
+
+            // Participation at maturity kicker
+            h("div",{style:{background:"rgba(16,185,129,.04)",border:"1px solid rgba(16,185,129,.15)",borderRadius:10,padding:"11px 12px",marginBottom:10}},
+              h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:rfqF.participation?10:0}},
+                h("div",null,
+                  h("div",{style:{fontSize:12,fontWeight:700,color:"rgba(255,255,255,.75)"}},"Participation at maturity"),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)",marginTop:2}},"If not called — client participates in upside at redemption")
+                ),
+                h(Tog,{v:!!rfqF.participation,on:()=>setRfqF(r=>({...r,participation:r.participation?"":"150",cap:""}))})
+              ),
+              rfqF.participation&&h("div",{className:"two",style:{marginBottom:0,marginTop:0}},
+                h(FG,{label:"Participation rate (%)",mb:0},h("input",{className:"fi",value:rfqF.participation,onChange:v=>setRfqF(r=>({...r,participation:v.target.value})),placeholder:"e.g. 150"})),
+                h(FG,{label:"Upside cap (%)",mb:0},h("input",{className:"fi",value:rfqF.cap,onChange:v=>setRfqF(r=>({...r,cap:v.target.value})),placeholder:"e.g. 30 (or leave blank)"}))
+              )
+            ),
+
+            // Memory coupon
+            h("div",{style:{background:"rgba(139,92,246,.04)",border:"1px solid rgba(139,92,246,.15)",borderRadius:10,padding:"11px 12px",marginBottom:10}},
+              h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center"}},
+                h("div",null,
+                  h("div",{style:{fontSize:12,fontWeight:700,color:"rgba(255,255,255,.75)"}},"Memory coupon"),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)",marginTop:2}},"Missed coupons accumulate and pay on next observation hit")
+                ),
+                h(Tog,{v:rfqF.mem,on:()=>setRfqF(r=>({...r,mem:!r.mem}))})
+              )
+            ),
+
+            // Twin Win
+            h("div",{style:{background:"rgba(245,158,11,.04)",border:"1px solid rgba(245,158,11,.15)",borderRadius:10,padding:"11px 12px",marginBottom:10}},
+              h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:rfqF.twinWin?10:0}},
+                h("div",null,
+                  h("div",{style:{fontSize:12,fontWeight:700,color:"rgba(255,255,255,.75)"}},"Twin Win"),
+                  h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)",marginTop:2}},"Profit from both upside and downside moves — barrier breach converts to 1:1 loss")
+                ),
+                h(Tog,{v:!!rfqF.twinWin,on:()=>setRfqF(r=>({...r,twinWin:!r.twinWin,twBarrier:r.twinWin?"":"60"}))})
+              ),
+              rfqF.twinWin&&h("div",null,
+                h("div",{className:"two",style:{marginBottom:8}},
+                  h(FG,{label:"Twin Win barrier (%)",mb:0},h("input",{className:"fi",value:rfqF.twBarrier||"",onChange:v=>setRfqF(r=>({...r,twBarrier:v.target.value})),placeholder:"e.g. 60"})),
+                  h(FG,{label:"Participation rate (%)",mb:0},h("input",{className:"fi",value:rfqF.twPart||"",onChange:v=>setRfqF(r=>({...r,twPart:v.target.value})),placeholder:"e.g. 100"}))
+                ),
+                h("div",{style:{fontSize:10,color:"rgba(245,158,11,.6)",lineHeight:1.5,padding:"7px 10px",background:"rgba(245,158,11,.06)",borderRadius:7}},"If underlying stays above the barrier: gains on upside AND losses converted to gains. Barrier breach = full downside exposure.")
+              )
+            ),
+
+            // Bespoke / free-text
+            h("div",{style:{background:"rgba(255,255,255,.02)",border:"1px solid rgba(255,255,255,.08)",borderRadius:10,padding:"11px 12px"}},
+              h("div",{style:{fontSize:12,fontWeight:700,color:"rgba(255,255,255,.75)",marginBottom:4}},"Bespoke terms"),
+              h("div",{style:{fontSize:10,color:"rgba(255,255,255,.35)",marginBottom:8}},"Anything not covered above — the desk will read this"),
+              h("textarea",{
+                value:rfqF.bespoke||"",
+                onChange:v=>setRfqF(r=>({...r,bespoke:v.target.value})),
+                placeholder:"e.g. 3yr Catapult, 150% participation at maturity if not called, 1yr non-call, 8% coupon, 30% barrier…",
+                style:{
+                  width:"100%",background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.09)",
+                  borderRadius:9,padding:"10px 12px",color:"#fff",fontSize:12,outline:"none",
+                  resize:"vertical",minHeight:72,lineHeight:1.6,fontFamily:"inherit"
+                }
+              })
+            )
+          )
+        ),
+
+        // ── SEND ──────────────────────────────────────────────────────
+        h("div",{style:{marginTop:16}},
+          (()=>{
+            const missing=[];
+            if(!rfqF.issuers.length) missing.push({label:"Select at least one preferred issuer",step:"Step 2"});
+            if(!rfqF.und.length)     missing.push({label:"Add at least one underlying",step:"Step 3"});
+            if(!rfqF.notional)       missing.push({label:"Enter a notional amount",step:"Step 4"});
+            const canSend=missing.length===0;
+            return h("div",null,
+              !canSend&&h("div",{style:{background:"rgba(245,158,11,.06)",border:"1px solid rgba(245,158,11,.18)",borderRadius:10,padding:"10px 13px",marginBottom:12}},
+                h("div",{style:{fontSize:10,color:"#F59E0B",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Before you can send"),
+                missing.map((m,i)=>
+                  h("div",{key:i,style:{display:"flex",alignItems:"center",gap:8,marginBottom:i<missing.length-1?6:0}},
+                    h("div",{style:{width:16,height:16,borderRadius:"50%",border:"1.5px solid rgba(245,158,11,.5)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+                      h("div",{style:{width:5,height:5,borderRadius:"50%",background:"#F59E0B"}})
+                    ),
+                    h("div",null,
+                      h("span",{style:{fontSize:11,color:"rgba(255,255,255,.55)"}},m.label),
+                      h("span",{style:{fontSize:10,color:"rgba(245,158,11,.6)",marginLeft:5}},m.step)
+                    )
+                  )
+                )
+              ),
+              h("button",{onClick:canSend?()=>setConfR(true):null,className:canSend?"bM":"bD",style:canSend?{}:{cursor:"not-allowed",opacity:.5}},"→ Send to desk"),
+              h("div",{style:{fontSize:11,color:"rgba(255,255,255,.16)",textAlign:"center",marginTop:8}},"Non-binding indication of interest only.")
+            );
+          })()
+        )
+      ),
+
+      // MY ORDERS
+      !isDesk&&      tab==="orders"&&(()=>{
+        // All client items
+        const allItems=[
+          ...rfqs.filter(r=>r.cid===user.id).map(r=>({...r,_type:"structure"})),
+          ...myI.map(i=>({...i,_type:"indication"}))
+        ];
+
+        // Group by status
+        const needsAction = allItems.filter(x=>x.st==="countered"||x.status==="priced");
+        const pending     = allItems.filter(x=>x.st==="pending"||x.status==="pending");
+        const accepted    = allItems.filter(x=>x.st==="accepted"||x.status==="accepted");
+        const passed      = allItems.filter(x=>x.st==="passed"||x.status==="passed");
+
+        // clientTab state lives at App level — reset to action when counter arrives
+
+        // Card renderer
+        const Card=({item})=>{
+          const isRfq=item._type==="structure";
+          const note=isRfq?null:notes.find(n=>n.id===item.nid);
+          const pt=isRfq?item.pt:note?.pt;
+          const pc=pt?PT[pt]?.c||"#0EA5E9":"#0EA5E9";
+          const issuer=isRfq?(item.issuers?.[0]||""):note?.issuer||"";
+          const und=isRfq?item.und:note?.und||[];
+          const tenor=isRfq?item.tenor:note?.tenor;
+          const amt=isRfq?item.notional:item.amt;
+          const st=isRfq?item.status:item.st;
+
+          const stMap={
+            pending:  {l:"PENDING",   c:"#F59E0B",bg:"rgba(245,158,11,.1)", bd:"rgba(245,158,11,.3)"},
+            priced:   {l:"TERMS SENT ✦",c:"#0EA5E9",bg:"rgba(14,165,233,.1)",bd:"rgba(14,165,233,.3)"},
+            accepted: {l:"ACCEPTED ✓",c:"#10B981",bg:"rgba(16,185,129,.1)", bd:"rgba(16,185,129,.3)"},
+            passed:   {l:"DECLINED",    c:"rgba(255,255,255,.4)",bg:"rgba(255,255,255,.06)",bd:"rgba(255,255,255,.12)"},
+            countered:{l:"COUNTER ↔", c:"#F59E0B",bg:"rgba(245,158,11,.1)", bd:"rgba(245,158,11,.3)"},
+          };
+          const badge=stMap[st]||stMap.pending;
+          const borderCol=st==="accepted"?"rgba(16,185,129,.2)":st==="countered"||st==="priced"?"rgba(245,158,11,.22)":st==="passed"?"rgba(255,255,255,.07)":"rgba(255,255,255,.08)";
+
+          return h("div",{style:{background:"rgba(255,255,255,.04)",border:"1px solid "+borderCol,borderRadius:14,marginBottom:10,overflow:"hidden"}},
+            h("div",{style:{height:3,background:pc}}),
+            h("div",{style:{padding:"13px 14px"}},
+
+              // Header
+              h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:9}},
+                h("div",null,
+                  h("div",{style:{display:"flex",alignItems:"center",gap:6,marginBottom:4,flexWrap:"wrap"}},
+                    pt&&h("span",{style:{background:pc+"18",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20,border:"1px solid "+pc+"30"}},PT[pt]?.l||""),
+                    issuer&&h("span",{style:{background:"rgba(255,255,255,.07)",color:"rgba(255,255,255,.65)",fontSize:11,fontWeight:700,padding:"2px 8px",borderRadius:20}},issuer)
+                  ),
+                  h("div",{style:{display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}},
+                    h("span",{style:{fontSize:10,color:"rgba(255,255,255,.32)"}},item.t||""),
+                    item.accType==="closing"&&h("span",{style:{fontSize:9,fontWeight:700,color:"#10B981",background:"rgba(16,185,129,.12)",padding:"2px 8px",borderRadius:20,border:"1px solid rgba(16,185,129,.3)"}},"🔔 Struck at close"),
+                    item.accType==="open"&&h("span",{style:{fontSize:9,fontWeight:700,color:"#0EA5E9",background:"rgba(14,165,233,.1)",padding:"2px 8px",borderRadius:20,border:"1px solid rgba(14,165,233,.25)"}},"📋 Open — awaiting strike"),
+                    (!item.accType||item.accType==="")&&item.st==="accepted"&&h("span",{style:{fontSize:9,fontWeight:700,color:"rgba(255,255,255,.35)",background:"rgba(255,255,255,.06)",padding:"2px 8px",borderRadius:20,border:"1px solid rgba(255,255,255,.1)"}},"Accepted")
+                  )
+                ),
+                h("div",{style:{textAlign:"right",flexShrink:0,marginLeft:10}},
+                  h("div",{style:{fontSize:20,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace",letterSpacing:"-.5px"}},"$"+amt?.toLocaleString()),
+                  h("div",{style:{display:"inline-block",fontSize:9,fontWeight:800,padding:"2px 9px",borderRadius:20,marginTop:3,background:badge.bg,border:"1px solid "+badge.bd,color:badge.c}},badge.l)
+                )
+              ),
+
+              // Underlyings
+              und.length>0&&h("div",{style:{display:"flex",gap:4,flexWrap:"wrap",marginBottom:9}},
+                und.map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.08)",fontSize:12,fontWeight:800,padding:"3px 8px",borderRadius:6}},u))
+              ),
+
+              // Terms grid
+              h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"7px 10px",background:"rgba(255,255,255,.03)",borderRadius:9,padding:"9px 11px",marginBottom:(st==="countered"||st==="priced")?10:0}},
+                tenor&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2}},tenor)),
+                (note?.coupon||item.coup)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},isRfq?"Target coupon":"Indicative coupon"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2,color:pc}},(note?.coupon||item.coup)+"%")),
+                (note?.barrier||item.barrier)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2}},(note?.barrier||item.barrier)+"%")),
+                (note?.cf||item.cf)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Obs. freq"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2}},note?.cf||item.cf)),
+                (note?.mem||item.mem)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Memory"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2,color:"#8B5CF6"}},"Enabled")),
+                (note?.pr||item.pr)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Participation"),h("div",{style:{fontSize:12,fontWeight:700,marginTop:2}},(note?.pr||item.pr)+"%"))
+              ),
+
+              // Accepted status banner — always shown for accepted items
+              st==="accepted"&&h("div",{style:{
+                background:item.accType==="closing"
+                  ?"rgba(16,185,129,.09)":item.accType==="open"
+                  ?"rgba(14,165,233,.07)":"rgba(255,255,255,.04)",
+                border:"1px solid "+(item.accType==="closing"
+                  ?"rgba(16,185,129,.3)":item.accType==="open"
+                  ?"rgba(14,165,233,.25)":"rgba(255,255,255,.1)"),
+                borderRadius:10,padding:"11px 13px",marginTop:8
+              }},
+                h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:item.accMsg?7:0}},
+                  h("div",{style:{
+                    width:36,height:36,borderRadius:9,flexShrink:0,
+                    display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,
+                    background:item.accType==="closing"?"rgba(16,185,129,.15)":item.accType==="open"?"rgba(14,165,233,.12)":"rgba(255,255,255,.06)",
+                    border:"1px solid "+(item.accType==="closing"?"rgba(16,185,129,.3)":item.accType==="open"?"rgba(14,165,233,.2)":"rgba(255,255,255,.1)")
+                  }},
+                    item.accType==="closing"?"🔔":item.accType==="open"?"📋":"✓"
+                  ),
+                  h("div",{style:{flex:1}},
+                    h("div",{style:{
+                      fontSize:13,fontWeight:800,marginBottom:3,
+                      color:item.accType==="closing"?"#10B981":item.accType==="open"?"#0EA5E9":"rgba(255,255,255,.7)"
+                    }},
+                      item.accType==="closing"
+                        ?"Striking today at market close"
+                        :item.accType==="open"
+                        ?"Note accepted — open, awaiting strike"
+                        :"Accepted by the desk"
+                    ),
+                    h("div",{style:{fontSize:11,color:"rgba(255,255,255,.38)",lineHeight:1.5}},
+                      item.accType==="closing"
+                        ?"Your note is confirmed and will price at today's market close. No further action needed."
+                        :item.accType==="open"
+                        ?"The desk has accepted your indication. The note remains open — you will be notified when a strike date is confirmed."
+                        :"The desk has accepted your indication. Await further confirmation on strike terms."
+                    )
+                  )
+                ),
+                item.accMsg&&h("div",{style:{
+                  fontSize:11,color:"rgba(255,255,255,.45)",fontStyle:"italic",
+                  paddingTop:7,borderTop:"1px solid rgba(255,255,255,.08)",marginTop:2
+                }},
+                  h("span",{style:{color:"rgba(255,255,255,.25)",marginRight:4}},"Desk:"),
+                  '"'+item.accMsg+'"'
+                )
+              ),
+
+              // Desk response — priced RFQ
+              st==="priced"&&h("div",{style:{background:"rgba(14,165,233,.06)",border:"1px solid rgba(14,165,233,.2)",borderRadius:9,padding:"10px 12px",marginBottom:10}},
+                h("div",{style:{fontSize:9,color:"rgba(14,165,233,.7)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:7}},"Desk terms"),
+                h("div",{style:{display:"flex",gap:14,flexWrap:"wrap",marginBottom:item.dm?6:0}},
+                  item.dc&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(14,165,233,.5)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Coupon"),h("div",{style:{fontSize:15,fontWeight:900,color:"#0EA5E9",fontFamily:"'DM Mono',monospace",marginTop:2}},item.dc+"%")),
+                  item.db&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(14,165,233,.5)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:15,fontWeight:900,color:"#0EA5E9",fontFamily:"'DM Mono',monospace",marginTop:2}},item.db+"%"))
+                ),
+                item.dm&&h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",fontStyle:"italic"}},'"'+item.dm+'"')
+              ),
+              st==="priced"&&h("div",{style:{display:"flex",gap:8}},
+                h("button",{onClick:()=>rfqRsp(item.id,"accepted"),style:{flex:2,padding:"10px",borderRadius:9,border:"none",background:"linear-gradient(135deg,#10B981,#0EA5E9)",color:"#080C18",fontWeight:800,fontSize:13,cursor:"pointer"}},"✓ Accept desk terms"),
+                h("button",{onClick:()=>rfqRsp(item.id,"passed"),style:{flex:1,padding:"10px",borderRadius:9,border:"1px solid rgba(255,255,255,.08)",background:"transparent",color:"rgba(255,255,255,.4)",fontWeight:700,fontSize:12,cursor:"pointer"}},"✕ Reject")
+              ),
+
+              // Counter-terms from desk
+              st==="countered"&&item.counter&&h("div",null,
+                h("div",{style:{background:"rgba(245,158,11,.06)",border:"1px solid rgba(245,158,11,.22)",borderRadius:9,padding:"10px 12px",marginBottom:10}},
+                  h("div",{style:{fontSize:9,color:"#F59E0B",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Desk counter-terms"),
+                  h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"8px 10px",marginBottom:item.counter.msg?8:0}},
+                    [
+                      item.counter.issuer  &&{l:"Issuer",      v:item.counter.issuer},
+                      item.counter.coupon  &&{l:"Coupon",      v:item.counter.coupon+"%"},
+                      item.counter.barrier &&{l:"Barrier",     v:item.counter.barrier+"%"},
+                      item.counter.btype   &&{l:"Barrier type",v:item.counter.btype},
+                      item.counter.tenor   &&{l:"Tenor",       v:item.counter.tenor},
+                      item.counter.cf      &&{l:"Obs. freq",   v:item.counter.cf},
+                      item.counter.pr      &&{l:"Participation",v:item.counter.pr+"%"},
+                      item.counter.lev     &&{l:"Leverage",    v:item.counter.lev+"×"},
+                      item.counter.cap     &&{l:"Cap",         v:item.counter.cap+"%"},
+                      item.counter.strike  &&{l:"Strike",      v:item.counter.strike+"%"},
+                      (item.counter.mem!==null&&item.counter.mem!==undefined)&&{l:"Memory",v:item.counter.mem?"On":"Off"},
+                    ].filter(Boolean).map((f,j)=>
+                      h("div",{key:j},
+                        h("div",{style:{fontSize:8,color:"rgba(245,158,11,.5)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},f.l),
+                        h("div",{style:{fontSize:13,fontWeight:800,color:"#F59E0B",marginTop:2}},f.v)
+                      )
+                    )
+                  ),
+                  item.counter.msg&&h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",fontStyle:"italic",paddingTop:6,borderTop:"1px solid rgba(245,158,11,.15)"}},'"'+item.counter.msg+'"')
+                ),
+                h("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
+                  h("button",{onClick:()=>clientCtr(item.id,"accept"),style:{flex:2,minWidth:120,padding:"10px",borderRadius:9,border:"none",background:"linear-gradient(135deg,#10B981,#0EA5E9)",color:"#080C18",fontWeight:800,fontSize:12,cursor:"pointer"}},"✓ Accept"),
+                  h("button",{onClick:()=>clientReCounter(item.id),style:{flex:1,minWidth:90,padding:"10px",borderRadius:9,border:"1px solid rgba(245,158,11,.3)",background:"rgba(245,158,11,.08)",color:"#F59E0B",fontWeight:700,fontSize:12,cursor:"pointer"}},"↔ Re-counter"),
+                  h("button",{onClick:()=>clientCtr(item.id,"decline"),style:{flex:1,minWidth:70,padding:"10px",borderRadius:9,border:"1px solid rgba(255,255,255,.08)",background:"transparent",color:"rgba(255,255,255,.4)",fontWeight:700,fontSize:12,cursor:"pointer"}},"✕ Decline")
+                )
+              )
+            )
+          );
+        };
+
+        const SectionTab=({id,label,icon,count,color,accentBg,accentBd})=>
+          h("button",{onClick:()=>setClientTab(id),style:{
+            flex:1,padding:"10px 4px 9px",borderRadius:10,border:"1px solid",
+            borderColor:clientTab===id?accentBd:"rgba(255,255,255,.07)",
+            cursor:"pointer",fontWeight:700,fontSize:9,transition:"all .18s",
+            background:clientTab===id?accentBg:"rgba(255,255,255,.03)",
+            color:clientTab===id?color:"rgba(255,255,255,.3)",
+            display:"flex",flexDirection:"column",alignItems:"center",gap:4,
+            position:"relative",overflow:"hidden"
+          }},
+            clientTab===id&&h("div",{style:{position:"absolute",top:0,left:0,right:0,height:2,background:color,borderRadius:2}}),
+            h("span",{style:{fontSize:14,lineHeight:1}},icon),
+            h("span",{style:{fontSize:8,fontWeight:800,letterSpacing:".3px",textTransform:"uppercase"}},label),
+            h("span",{style:{
+              background:clientTab===id?"rgba(255,255,255,.15)":"rgba(255,255,255,.07)",
+              color:clientTab===id?color:"rgba(255,255,255,.3)",
+              fontSize:9,fontWeight:800,padding:"1px 6px",borderRadius:20,minWidth:18,textAlign:"center"
+            }},count)
+          );
+
+        if(allItems.length===0) return h("div",{style:{textAlign:"center",padding:"48px 0"}},
+          h("div",{style:{fontSize:14,fontWeight:600,marginBottom:5,color:"rgba(255,255,255,.5)"}},"No structures yet"),
+          h("div",{style:{fontSize:12,color:"rgba(255,255,255,.3)",marginBottom:16}},"Build your first structure and the desk will respond with indicative terms"),
+          h("button",{onClick:()=>setTab("build"),style:{padding:"10px 20px",borderRadius:20,border:"1px solid rgba(14,165,233,.3)",background:"rgba(14,165,233,.08)",color:"#0EA5E9",fontWeight:700,fontSize:12,cursor:"pointer"}},"→ Start building")
+        );
+
+        return h("div",null,
+          // Tab bar — status sections
+          h("div",{style:{display:"grid",gridTemplateColumns:needsAction.length>0?"1fr 1fr 1fr 1fr":"1fr 1fr 1fr",gap:6,marginBottom:16}},
+            needsAction.length>0&&h(SectionTab,{id:"action",label:"Action",icon:"⚡",count:needsAction.length,color:"#F59E0B",accentBg:"rgba(245,158,11,.1)",accentBd:"rgba(245,158,11,.35)"}),
+            h(SectionTab,{id:"pending",label:"Pending",icon:"🕐",count:pending.length,color:"#0EA5E9",accentBg:"rgba(14,165,233,.08)",accentBd:"rgba(14,165,233,.3)"}),
+            h(SectionTab,{id:"accepted",label:"Accepted",icon:"✓",count:accepted.length,color:"#10B981",accentBg:"rgba(16,185,129,.08)",accentBd:"rgba(16,185,129,.3)"}),
+            h(SectionTab,{id:"passed",label:"Declined",icon:"✕",count:passed.length,color:"rgba(255,255,255,.35)",accentBg:"rgba(255,255,255,.04)",accentBd:"rgba(255,255,255,.12)"})
+          ),
+
+          // Tab content
+          clientTab==="action"&&(needsAction.length===0
+            ?h("div",{style:{textAlign:"center",padding:"48px 16px"}},
+              h("div",{style:{fontSize:44,marginBottom:12,opacity:.5}},"⚡"),
+              h("div",{style:{fontSize:14,fontWeight:700,color:"rgba(255,255,255,.5)",marginBottom:5}},"All clear"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.28)",lineHeight:1.6}},"No desk responses waiting for your decision right now.")
+            )
+            :needsAction.map((item,i)=>h(Card,{key:item.id||i,item}))
+          ),
+          clientTab==="pending"&&(pending.length===0
+            ?h("div",{style:{textAlign:"center",padding:"48px 16px"}},
+              h("div",{style:{fontSize:44,marginBottom:12,opacity:.5}},"🕐"),
+              h("div",{style:{fontSize:14,fontWeight:700,color:"rgba(255,255,255,.5)",marginBottom:5}},"Nothing pending"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.28)",lineHeight:1.6}},"Structures you send will appear here while the desk reviews them.")
+            )
+            :pending.map((item,i)=>h(Card,{key:item.id||i,item}))
+          ),
+          clientTab==="accepted"&&(accepted.length===0
+            ?h("div",{style:{textAlign:"center",padding:"48px 16px"}},
+              h("div",{style:{fontSize:44,marginBottom:12,opacity:.5}},"✓"),
+              h("div",{style:{fontSize:14,fontWeight:700,color:"rgba(255,255,255,.5)",marginBottom:5}},"No accepted structures yet"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.28)",lineHeight:1.6}},"Structures accepted by the desk will show here.")
+            )
+            :accepted.map((item,i)=>h(Card,{key:item.id||i,item}))
+          ),
+          clientTab==="passed"&&(passed.length===0
+            ?h("div",{style:{textAlign:"center",padding:"48px 16px"}},
+              h("div",{style:{fontSize:44,marginBottom:12,opacity:.5}},"✕"),
+              h("div",{style:{fontSize:14,fontWeight:700,color:"rgba(255,255,255,.5)",marginBottom:5}},"Nothing declined"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.28)",lineHeight:1.6}},"Structures passed on by you or the desk will appear here.")
+            )
+            :passed.map((item,i)=>h(Card,{key:item.id||i,item}))
+          )
+        );
+      })(),
+
+
+
+      // PAST NOTES LIBRARY
+      !isDesk&&tab==="history"&&(()=>{
+        // Past notes = all accepted indications + rfqs
+        const pastInds=myI.filter(i=>i.st==="accepted");
+        const pastRfqs=rfqs.filter(r=>r.cid===user.id&&r.status==="accepted");
+        const all=[
+          ...pastInds.map(i=>{const note=notes.find(n=>n.id===i.nid);return note?{...note,_src:"ind",_amt:i.amt,_t:i.t,_accType:i.accType}:null}).filter(Boolean),
+          ...pastRfqs.map(r=>({id:r.id,pt:r.pt,issuer:r.issuers?.[0]||"",und:r.und||[],tenor:r.tenor,coupon:r.coup,barrier:r.barrier,cf:r.cf,btype:r.btype,mem:r.mem,pr:r.participation,lev:r.lev,cap:r.cap,bespoke:r.bespoke,_src:"rfq",_amt:r.notional,_t:r.t,_accType:r.accType}))
+        ];
+
+        const reorder=(item)=>{
+          // Pre-fill the build form with this structure's terms
+          setRfqF({
+            pt:item.pt||"autocallable",
+            issuers:item.issuer?[item.issuer]:[],
+            und:item.und||[],
+            tenor:item.tenor||"1 year",
+            coup:item.coupon?String(item.coupon):"",
+            barrier:item.barrier?String(item.barrier):"",
+            cf:item.cf||"Quarterly",
+            btype:item.btype||"European",
+            mem:item.mem||false,
+            notional:item._amt?String(item._amt):"",
+            lev:item.lev?String(item.lev):"",
+            cap:item.cap?String(item.cap):"",
+            ncPeriod:"",
+            participation:item.pr?String(item.pr):"",
+            bespoke:item.bespoke||"",
+            twinWin:false,twBarrier:"",twPart:""
+          });
+          setTab("build");
+          toast_("Structure loaded — review and send");
+        };
+
+        return h("div",{style:{paddingBottom:16}},
+          h("div",{style:{
+            background:"linear-gradient(135deg,rgba(109,86,245,.08) 0%,rgba(14,165,233,.05) 100%)",
+            border:"1px solid rgba(109,86,245,.18)",borderRadius:14,
+            padding:"16px 16px 14px",marginBottom:18,position:"relative",overflow:"hidden"
+          }},
+            h("div",{style:{position:"absolute",top:-20,right:-20,width:80,height:80,borderRadius:"50%",background:"rgba(109,86,245,.08)"}}),
+            h("div",{style:{fontSize:18,fontWeight:900,letterSpacing:"-.5px",marginBottom:4}},"Past structures"),
+            h("div",{style:{fontSize:12,color:"rgba(255,255,255,.45)",lineHeight:1.6}},"Your previously accepted notes. Tap any to pre-fill the builder and re-send to the desk.")
+          ),
+
+          all.length===0&&h("div",{style:{textAlign:"center",padding:"48px 16px"}},
+            h("div",{style:{fontSize:40,marginBottom:12,opacity:.4}},"📂"),
+            h("div",{style:{fontSize:14,fontWeight:700,color:"rgba(255,255,255,.4)",marginBottom:5}},"No past structures yet"),
+            h("div",{style:{fontSize:12,color:"rgba(255,255,255,.28)",lineHeight:1.6}},"Accepted notes will appear here for easy re-ordering.")
+          ),
+
+          all.map((item,i)=>{
+            const pc=PT[item.pt]?.c||"#0EA5E9";
+            return h("div",{key:item.id||i,style:{
+              background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.09)",
+              borderRadius:14,marginBottom:10,overflow:"hidden",position:"relative"
+            }},
+              h("div",{style:{height:3,background:pc}}),
+              h("div",{style:{padding:"13px 14px"}},
+
+                // Header
+                h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:9}},
+                  h("div",null,
+                    h("div",{style:{display:"flex",alignItems:"center",gap:6,marginBottom:4,flexWrap:"wrap"}},
+                      h("span",{style:{background:pc+"18",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20,border:"1px solid "+pc+"30"}},PT[item.pt]?.l||""),
+                      item.issuer&&h("span",{style:{background:"rgba(255,255,255,.07)",color:"rgba(255,255,255,.65)",fontSize:11,fontWeight:700,padding:"2px 8px",borderRadius:20}},item.issuer)
+                    ),
+                    h("div",{style:{fontSize:10,color:"rgba(255,255,255,.3)"}},item._t||"")
+                  ),
+                  h("div",{style:{textAlign:"right",flexShrink:0,marginLeft:10}},
+                    h("div",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},"$"+Number(item._amt||0).toLocaleString()),
+                    item._accType&&h("div",{style:{fontSize:9,fontWeight:700,color:item._accType==="closing"?"#10B981":"#0EA5E9",marginTop:2}},
+                      item._accType==="closing"?"🔔 Struck":"📋 Open"
+                    )
+                  )
+                ),
+
+                // Underlyings
+                h("div",{style:{display:"flex",gap:4,flexWrap:"wrap",marginBottom:9}},
+                  (item.und||[]).map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.08)",fontSize:12,fontWeight:800,padding:"3px 8px",borderRadius:6}},u))
+                ),
+
+                // Key terms strip
+                h("div",{style:{display:"flex",gap:12,flexWrap:"wrap",paddingTop:8,borderTop:"1px solid rgba(255,255,255,.06)",marginBottom:12}},
+                  item.tenor&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:2}},item.tenor)),
+                  item.coupon&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Coupon"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:2,color:pc}},item.coupon+"%")),
+                  item.barrier&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:2}},item.barrier+"%")),
+                  item.cf&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Obs."),h("div",{style:{fontSize:11,fontWeight:700,marginTop:2}},item.cf)),
+                  item.mem&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Memory"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:2,color:"#8B5CF6"}},"On"))
+                ),
+
+                // Re-order button
+                h("button",{onClick:()=>reorder(item),style:{
+                  width:"100%",padding:"10px",borderRadius:9,cursor:"pointer",
+                  border:"1px solid rgba(109,86,245,.3)",
+                  background:"rgba(109,86,245,.08)",
+                  color:"#6D56F5",fontWeight:700,fontSize:12,
+                  display:"flex",alignItems:"center",justifyContent:"center",gap:7
+                }},
+                  h("svg",{width:13,height:13,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2.5,strokeLinecap:"round"},
+                    h("polyline",{points:"1 4 1 10 7 10"}),
+                    h("path",{d:"M3.51 15a9 9 0 1 0 .49-3.5"})
+                  ),
+                  "Re-order this structure"
+                )
+              )
+            );
+          })
+        );
+      })(),
+
+      // LEARN
+      !isDesk&&tab==="learn"&&h("div",{style:{paddingBottom:14}},
+        h("div",{style:{background:"rgba(123,97,255,.07)",border:"1px solid rgba(123,97,255,.18)",borderRadius:12,padding:"11px 13px",marginBottom:11}},h("div",{style:{fontSize:14,fontWeight:800,marginBottom:3}},"Structured Notes Glossary"),h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)",lineHeight:1.5}},"All product types, key terms and risk notes explained")),
+        GLOSS.map((g,i)=>h("div",{key:i,className:"gcard",style:{border:"1px solid "+(openG===i?g.c+"30":"rgba(255,255,255,.08)")}},
+          h("div",{className:"grow",onClick:()=>setOpenG(openG===i?null:i)},h("div",{style:{display:"flex",alignItems:"center",gap:8}},h("div",{className:"gico",style:{background:g.c+"14",border:"1px solid "+g.c+"28"}},g.ico),h("div",null,h("div",{className:"gterm",style:{color:g.c}},g.term),h("div",{className:"gshort"},g.s))),h("span",{style:{color:"rgba(255,255,255,.4)",transform:openG===i?"rotate(180deg)":"none",transition:"transform .2s",display:"inline-block"}},"⌄")),
+          openG===i&&h("div",{className:"gbody"},h("div",{className:"gsec",style:{color:g.c}},"How it works"),h("div",{className:"gtxt"},g.d),h("div",{className:"gsec",style:{color:g.c}},"Example"),h("div",{className:"gtxt"},g.ex),h("div",{className:"riskbox"},h("div",{className:"gsec",style:{color:"#F43F5E",marginTop:0}},"Risk note"),h("div",{className:"gtxt",style:{color:"rgba(255,255,255,.45)"}},g.r)))
+        ))
+      ),
+
+      // DESK
+      isDesk&&h("div",null,
+
+        // ── DESK HEADER ROW ───────────────────────────────────────────
+        h("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:16}},
+
+          // Tab bar
+          h("div",{style:{flex:1,display:"flex",gap:3,background:"rgba(255,255,255,.05)",borderRadius:10,padding:4}},
+          [{k:"inbox",l:"📥 Inbox",count:inds.filter(i=>i.st==="pending").length+rfqs.filter(r=>r.status==="pending").length},
+           {k:"accepted",l:"✓ Accepted",count:inds.filter(i=>i.st==="accepted").length+rfqs.filter(r=>r.status==="accepted").length},
+           {k:"countered",l:"↔ Countered",count:inds.filter(i=>i.st==="countered").length+rfqs.filter(r=>r.status==="priced").length},
+           {k:"passed",l:"✕ Passed",count:inds.filter(i=>i.st==="passed").length+rfqs.filter(r=>r.status==="passed").length},
+          ].map(t=>
+            h("button",{key:t.k,onClick:()=>setDeskTab(t.k),style:{
+              flex:1,padding:"7px 4px",borderRadius:7,border:"none",cursor:"pointer",
+              fontWeight:700,fontSize:9,transition:"all .15s",
+              background:deskTab===t.k?"linear-gradient(135deg,#0EA5E9,#6D56F5)":"transparent",
+              color:deskTab===t.k?"#fff":"rgba(255,255,255,.4)",
+              display:"flex",flexDirection:"column",alignItems:"center",gap:2
+            }},
+              t.l,
+              t.count>0&&h("span",{style:{
+                background:deskTab===t.k?"rgba(255,255,255,.25)":"rgba(255,255,255,.1)",
+                color:deskTab===t.k?"#fff":t.k==="inbox"?"#F59E0B":t.k==="accepted"?"#10B981":t.k==="countered"?"#F59E0B":"rgba(255,255,255,.4)",
+                fontSize:9,fontWeight:800,padding:"0px 5px",borderRadius:10,lineHeight:"14px"
+              }},t.count)
+            )
+          )
+          ),
+
+          // Export button
+          h("button",{
+            onClick:exportToExcel,
+            title:"Export all data to Excel/CSV",
+            style:{
+              display:"flex",alignItems:"center",gap:5,
+              padding:"8px 12px",borderRadius:9,border:"1px solid rgba(16,185,129,.3)",
+              background:"rgba(16,185,129,.08)",cursor:"pointer",
+              color:"#10B981",fontWeight:700,fontSize:11,whiteSpace:"nowrap",flexShrink:0
+            }
+          },
+            h("svg",{width:13,height:13,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round"},
+              h("path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}),
+              h("polyline",{points:"7 10 12 15 17 10"}),
+              h("line",{x1:12,y1:15,x2:12,y2:3})
+            ),
+            "Export"
+          )
+        ),
+
+        // ═══ INBOX TAB ════════════════════════════════════════════════
+        deskTab==="inbox"&&h("div",null,
+          // Header
+          h("div",{style:{marginBottom:14}},
+            h("div",{style:{fontSize:16,fontWeight:800,letterSpacing:"-.3px"}},"Indications inbox"),
+            h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)",marginTop:2}},
+              (()=>{const p=inds.filter(i=>i.st==="pending").length+rfqs.filter(r=>r.status==="pending").length;return p===0?"No pending indications":p+" pending · review and respond";})()
+            )
+          ),
+          // Empty
+          (inds.filter(i=>i.st==="pending").length===0&&rfqs.filter(r=>r.status==="pending").length===0)&&
+            h("div",{style:{textAlign:"center",padding:"40px 0",color:"rgba(255,255,255,.25)"}},
+              h("div",{style:{fontSize:32,marginBottom:10}},"📭"),
+              h("div",{style:{fontSize:13,fontWeight:600,color:"rgba(255,255,255,.4)"}},"Inbox is clear"),
+              h("div",{style:{fontSize:12,marginTop:4}},"All indications have been actioned")
+            ),
+          // Pending indications
+          [...inds.filter(i=>i.st==="pending"||i.st==="recountered")].map((ind,i)=>{
+            const note=notes.find(n=>n.id===ind.nid);
+            const pc=note?ptc(note):"#0EA5E9";
+            return h("div",{key:ind.id,style:{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,179,71,.2)",borderRadius:13,padding:14,marginBottom:9,position:"relative",overflow:"hidden"}},
+              h("div",{style:{position:"absolute",top:0,left:0,width:3,height:"100%",background:pc}}),
+              h("div",{style:{paddingLeft:10}},
+                h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}},
+                  h("div",{style:{display:"flex",alignItems:"center",gap:8}},
+                    h("div",{style:{width:30,height:30,borderRadius:"50%",background:pc+"20",border:"1.5px solid "+pc+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:pc}},ind.ci),
+                    h("div",null,h("div",{style:{fontSize:13,fontWeight:700}},ind.cn),h("div",{style:{fontSize:10,color:"rgba(255,255,255,.38)"}},ind.t))
+                  ),
+                  h("div",{style:{textAlign:"right"}},
+                    h("div",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},"$"+ind.amt.toLocaleString()),
+                    h("div",{style:{fontSize:9,fontWeight:700,color:"#F59E0B",marginTop:2}},"PENDING")
+                  )
+                ),
+                note&&h("div",{style:{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}},
+                  h("span",{style:{background:pc+"14",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},ptl(note)),
+                  h("span",{style:{background:"rgba(255,255,255,.06)",color:"rgba(255,255,255,.55)",fontSize:9,fontWeight:600,padding:"2px 7px",borderRadius:20}},note.issuer),
+                  note.und.map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.05)",color:"rgba(255,255,255,.45)",fontSize:9,fontWeight:700,padding:"2px 5px",borderRadius:4}},u))
+                ),
+                note&&h("div",{style:{display:"flex",gap:12,paddingTop:8,borderTop:"1px solid rgba(255,255,255,.06)",marginBottom:10}},
+                  note.coupon&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Coupon"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.coupon+"%")),
+                  note.barrier&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.barrier+"%")),
+                  note.tenor&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.tenor)),
+                  note.cf&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Obs."),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.cf))
+                ),
+                h("div",{style:{display:"flex",gap:7}},
+                  h("button",{onClick:()=>setAcceptModal({id:ind.id,ind,note:notes.find(n=>n.id===ind.nid)}),className:"bacc",style:{flex:1,padding:"9px",fontSize:12}},"✓ Accept"),
+                  h("button",{onClick:()=>{setCtrInd(ind);setCf2({issuer:note?.issuer||"",coupon:note?.coupon?String(note.coupon):"",barrier:note?.barrier?String(note.barrier):"",tenor:note?.tenor||"",cf:note?.cf||"",btype:"European",mem:note?.mem||false,pr:note?.pr?String(note.pr):"",lev:note?.lev?String(note.lev):"",cap:note?.cap?String(note.cap):"",strike:"100",msg:""});},className:"bctr",style:{flex:1,padding:"9px",fontSize:12}},"↔ Counter"),
+                  h("button",{onClick:()=>deskPass(ind.id),className:"bpas",style:{flex:1,padding:"9px",fontSize:12}},"✕ Pass")
+                )
+              )
+            );
+          }),
+          // Pending RFQs
+          rfqs.filter(r=>r.status==="pending").length>0&&h("div",{style:{marginTop:inds.filter(i=>i.st==="pending").length?16:0}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Client structures"),
+            rfqs.filter(r=>r.status==="pending").map(ri=>{
+              const pc=PT[ri.pt]?.c||"#6D56F5";
+              return h("div",{key:ri.id,style:{background:"rgba(255,255,255,.04)",border:"1px solid rgba(123,97,255,.22)",borderRadius:13,padding:14,marginBottom:9,position:"relative",overflow:"hidden"}},
+                h("div",{style:{position:"absolute",top:0,left:0,width:3,height:"100%",background:pc}}),
+                h("div",{style:{paddingLeft:10}},
+                  h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:8}},
+                      h("div",{style:{width:30,height:30,borderRadius:"50%",background:pc+"20",border:"1.5px solid "+pc+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:pc}},ri.ci),
+                      h("div",null,h("div",{style:{fontSize:13,fontWeight:700}},ri.cn),h("div",{style:{fontSize:10,color:"rgba(255,255,255,.38)"}},"Structure"))
+                    ),
+                    h("div",{style:{textAlign:"right"}},
+                      h("div",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},"$"+ri.notional?.toLocaleString()),
+                      ri.tc&&h("div",{style:{fontSize:10,color:"rgba(255,255,255,.4)",marginTop:1}},"target "+ri.tc+"%")
+                    )
+                  ),
+                  h("div",{style:{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}},
+                    h("span",{style:{background:pc+"14",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},PT[ri.pt]?.l||"Structure"),
+                    ri.issuers?.map(iss=>h("span",{key:iss,style:{background:"rgba(255,255,255,.06)",color:"rgba(255,255,255,.55)",fontSize:9,fontWeight:600,padding:"2px 7px",borderRadius:20}},iss)),
+                    ri.und?.map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.05)",color:"rgba(255,255,255,.45)",fontSize:9,fontWeight:700,padding:"2px 5px",borderRadius:4}},u))
+                  ),
+                  h("div",{style:{display:"flex",gap:12,paddingTop:8,borderTop:"1px solid rgba(255,255,255,.06)",marginBottom:10}},
+                    ri.tenor&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},ri.tenor)),
+                    ri.coup&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Target"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},ri.coup+"%")),
+                    ri.barrier&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},ri.barrier+"%")),
+                    ri.cf&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Obs."),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},ri.cf))
+                  ),
+                  h("div",{style:{display:"flex",gap:7,marginTop:2}},
+                    h("button",{onClick:()=>{
+                        setRfqs(p=>p.map(r=>r.id===ri.id?{...r,status:"accepted"}:r));
+                        setNotifs(p=>[{id:"nt"+Date.now(),uid:ri.cid,title:"✓ structure accepted — "+PT[ri.pt]?.l,body:"Desk accepted your structure for "+ri.und?.join(", ")+" · $"+ri.notional?.toLocaleString(),read:false,type:"accepted"},...p]);
+                        toast_("Accepted!");
+                      },className:"bacc",style:{flex:1,padding:"9px",fontSize:12}},"✓ Accept"),
+                    h("button",{onClick:()=>setPriceR(ri),className:"bctr",style:{flex:1,padding:"9px",fontSize:12}},"↔ Counter"),
+                    h("button",{onClick:()=>{
+                        setRfqs(p=>p.map(r=>r.id===ri.id?{...r,status:"passed"}:r));
+                        setNotifs(p=>[{id:"nt"+Date.now(),uid:ri.cid,title:"Structure passed — "+PT[ri.pt]?.l,body:"The desk passed on your structure for "+ri.und?.join(", "),read:false,type:"passed"},...p]);
+                        toast_("Passed.");
+                      },className:"bpas",style:{flex:1,padding:"9px",fontSize:12}},"✕ Pass")
+                  )
+                )
+              );
+            })
+          )
+        ),
+
+        // ═══ ACCEPTED TAB ═════════════════════════════════════════════
+        deskTab==="accepted"&&(()=>{
+          const items=[...inds.filter(i=>i.st==="accepted"),...rfqs.filter(r=>r.status==="accepted")];
+          return h("div",null,
+            h("div",{style:{marginBottom:14}},
+              h("div",{style:{fontSize:16,fontWeight:800,letterSpacing:"-.3px",color:"#10B981"}},"✓ Accepted"),
+              h("div",{style:{display:"flex",alignItems:"center",gap:10,marginTop:4,flexWrap:"wrap"}},
+                h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},(()=>{const c=items.filter(i=>i.accType==="closing").length;return c>0?c+" struck at close":""})()),
+                (()=>{const a=items.filter(i=>i.accType==="closing").length;const b=items.filter(i=>i.accType==="open").length;return a>0&&b>0?h("span",{style:{color:"rgba(255,255,255,.2)"}},"·"):null;})(),
+                h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},(()=>{const c=items.filter(i=>i.accType==="open").length;return c>0?c+" open — awaiting strike":""})()),
+                (()=>{const a=items.filter(i=>i.accType==="closing"||i.accType==="open").length;const total=items.length;return total>a?h("span",{style:{fontSize:11,color:"rgba(255,255,255,.3)"}},total-a+" accepted"):null;})()
+              )
+            ),
+            items.length===0?h("div",{style:{textAlign:"center",padding:"48px 0"}},
+              h("div",{style:{fontSize:32,marginBottom:10}},"📋"),
+              h("div",{style:{fontSize:13,color:"rgba(255,255,255,.4)"}},"No accepted indications yet")
+            ):items.map((item,i)=>{
+              const note=notes.find(n=>n.id===item.nid);
+              const pt=item.pt||note?.pt||"autocallable";
+              const pc=PT[pt]?.c||"#0EA5E9";
+              const amt=item.amt||item.notional||0;
+              return h("div",{key:item.id||i,style:{background:"rgba(0,229,160,.04)",border:"1px solid rgba(0,229,160,.2)",borderRadius:13,padding:14,marginBottom:9,position:"relative",overflow:"hidden"}},
+                h("div",{style:{position:"absolute",top:0,left:0,width:3,height:"100%",background:"#10B981"}}),
+                h("div",{style:{paddingLeft:10}},
+                  h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:8}},
+                      h("div",{style:{width:30,height:30,borderRadius:"50%",background:"rgba(0,229,160,.15)",border:"1.5px solid rgba(0,229,160,.4)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#10B981"}},item.ci),
+                      h("div",null,h("div",{style:{fontSize:13,fontWeight:700}},item.cn),h("div",{style:{fontSize:10,color:"rgba(255,255,255,.38)"}},item.t||""))
+                    ),
+                    h("div",{style:{textAlign:"right"}},
+                      h("div",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},"$"+amt.toLocaleString()),
+                      h("div",{style:{fontSize:9,fontWeight:700,color:"#10B981",marginTop:2,background:"rgba(0,229,160,.12)",padding:"2px 8px",borderRadius:20,border:"1px solid rgba(0,229,160,.25)"}},"✓ ACCEPTED")
+                    )
+                  ),
+                  h("div",{style:{display:"flex",gap:5,flexWrap:"wrap",marginBottom:8}},
+                    h("span",{style:{background:pc+"14",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},PT[pt]?.l||""),
+                    note&&h("span",{style:{background:"rgba(255,255,255,.06)",color:"rgba(255,255,255,.55)",fontSize:9,fontWeight:600,padding:"2px 7px",borderRadius:20}},note.issuer),
+                    (note?.und||item.und||[]).map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.05)",color:"rgba(255,255,255,.45)",fontSize:9,fontWeight:700,padding:"2px 5px",borderRadius:4}},u))
+                  ),
+                  h("div",{style:{display:"flex",gap:12,paddingTop:8,borderTop:"1px solid rgba(0,229,160,.1)",marginBottom:item.accType?8:0}},
+                    (note?.tenor||item.tenor)&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note?.tenor||item.tenor)),
+                    note?.coupon&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Coupon"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.coupon+"%")),
+                    note?.barrier&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.barrier+"%")),
+                    note?.cf&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.28)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Obs."),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.cf))
+                  ),
+
+                  // Acceptance condition banner
+                  item.accType&&h("div",{style:{
+                    background:item.accType==="closing"?"rgba(16,185,129,.08)":"rgba(14,165,233,.06)",
+                    border:"1px solid "+(item.accType==="closing"?"rgba(16,185,129,.25)":"rgba(14,165,233,.2)"),
+                    borderRadius:9,padding:"9px 12px"
+                  }},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:(item.accMsg||item.accType==="open")?6:0}},
+                      h("span",{style:{fontSize:13}},item.accType==="closing"?"🔔":"📋"),
+                      h("div",{style:{flex:1}},
+                        h("div",{style:{fontSize:12,fontWeight:800,color:item.accType==="closing"?"#10B981":"#0EA5E9"}},
+                          item.accType==="closing"?"Striking today at market close":"Note remains open"
+                        ),
+                        h("div",{style:{fontSize:10,color:"rgba(255,255,255,.38)",marginTop:1}},
+                          item.accType==="closing"
+                            ?"Client confirmed — note prices at today's close"
+                            :"Client notified — strike date to be confirmed"
+                        )
+                      )
+                    ),
+                    item.accMsg&&h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",fontStyle:"italic",paddingTop:5,borderTop:"1px solid rgba(255,255,255,.07)",marginTop:2,marginBottom:item.accType==="open"?8:0}},'"'+item.accMsg+'"'),
+
+                    // Close button — only for open notes
+                    item.accType==="open"&&h("button",{
+                      onClick:()=>setCloseOpenModal({id:item.id,item}),
+                      style:{
+                        width:"100%",padding:"8px 12px",borderRadius:8,cursor:"pointer",
+                        border:"1px solid rgba(244,63,94,.3)",
+                        background:"rgba(244,63,94,.07)",
+                        color:"#F43F5E",fontWeight:700,fontSize:11,
+                        display:"flex",alignItems:"center",justifyContent:"center",gap:6
+                      }
+                    },
+                      h("svg",{width:11,height:11,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2.5,strokeLinecap:"round"},
+                        h("circle",{cx:12,cy:12,r:10}),
+                        h("line",{x1:12,y1:8,x2:12,y2:12}),
+                        h("line",{x1:12,y1:16,x2:"12.01",y2:16})
+                      ),
+                      "Close note — strike today"
+                    )
+                  )
+                )
+              );
+            })
+          );
+        })(),
+
+        // ═══ COUNTERED TAB ════════════════════════════════════════════
+        deskTab==="countered"&&(()=>{
+          const items=[...inds.filter(i=>i.st==="countered"),...rfqs.filter(r=>r.status==="priced")];
+          return h("div",null,
+            h("div",{style:{marginBottom:14}},
+              h("div",{style:{fontSize:16,fontWeight:800,letterSpacing:"-.3px",color:"#F59E0B"}},"↔ Countered"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)",marginTop:2}},items.length+" counter-term"+(items.length!==1?"s":"")+" sent — awaiting client response")
+            ),
+            items.length===0?h("div",{style:{textAlign:"center",padding:"48px 0"}},
+              h("div",{style:{fontSize:32,marginBottom:10}},"📋"),
+              h("div",{style:{fontSize:13,color:"rgba(255,255,255,.4)"}},"No counters sent yet")
+            ):items.map((item,i)=>{
+              const note=notes.find(n=>n.id===item.nid);
+              const pt=item.pt||note?.pt||"autocallable";
+              const pc=PT[pt]?.c||"#0EA5E9";
+              const amt=item.amt||item.notional||0;
+              const ctr=item.counter||{coupon:item.dc,barrier:item.db,msg:item.dm};
+              return h("div",{key:item.id||i,style:{background:"rgba(255,179,71,.04)",border:"1px solid rgba(255,179,71,.22)",borderRadius:13,padding:14,marginBottom:9,position:"relative",overflow:"hidden"}},
+                h("div",{style:{position:"absolute",top:0,left:0,width:3,height:"100%",background:"#F59E0B"}}),
+                h("div",{style:{paddingLeft:10}},
+                  h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:8}},
+                      h("div",{style:{width:30,height:30,borderRadius:"50%",background:"rgba(255,179,71,.15)",border:"1.5px solid rgba(255,179,71,.4)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"#F59E0B"}},item.ci),
+                      h("div",null,h("div",{style:{fontSize:13,fontWeight:700}},item.cn),h("div",{style:{fontSize:10,color:"rgba(255,255,255,.38)"}},item.t||""))
+                    ),
+                    h("div",{style:{textAlign:"right"}},
+                      h("div",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},"$"+amt.toLocaleString()),
+                      h("div",{style:{fontSize:9,fontWeight:700,color:"#F59E0B",marginTop:2,background:"rgba(255,179,71,.12)",padding:"2px 8px",borderRadius:20,border:"1px solid rgba(255,179,71,.25)"}},"↔ AWAITING RESPONSE")
+                    )
+                  ),
+                  h("div",{style:{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}},
+                    h("span",{style:{background:pc+"14",color:pc,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},PT[pt]?.l||""),
+                    note&&h("span",{style:{background:"rgba(255,255,255,.06)",color:"rgba(255,255,255,.55)",fontSize:9,fontWeight:600,padding:"2px 7px",borderRadius:20}},note.issuer),
+                    (note?.und||item.und||[]).map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.05)",color:"rgba(255,255,255,.45)",fontSize:9,fontWeight:700,padding:"2px 5px",borderRadius:4}},u))
+                  ),
+                  // Counter terms offered
+                  ctr&&h("div",{style:{background:"rgba(255,179,71,.08)",border:"1px solid rgba(255,179,71,.2)",borderRadius:9,padding:"10px 12px",marginBottom:8}},
+                    h("div",{style:{fontSize:9,color:"#F59E0B",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Terms offered"),
+                    h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 14px"}},
+                      [
+                        ctr.issuer&&{l:"Issuer",v:ctr.issuer},
+                    ctr.coupon&&{l:"Coupon",v:ctr.coupon+"%"},
+                        ctr.barrier&&{l:"Barrier",v:ctr.barrier+"%"},
+                        ctr.tenor&&{l:"Tenor",v:ctr.tenor},
+                        ctr.cf&&{l:"Obs. freq",v:ctr.cf},
+                        ctr.btype&&{l:"Barrier type",v:ctr.btype},
+                        ctr.pr&&{l:"Participation",v:ctr.pr+"%"},
+                        ctr.lev&&{l:"Leverage",v:ctr.lev+"×"},
+                        ctr.cap&&{l:"Cap",v:ctr.cap+"%"},
+                        (ctr.mem!==null&&ctr.mem!==undefined)&&{l:"Memory",v:ctr.mem?"On":"Off"},
+                      ].filter(Boolean).map((f,j)=>
+                        h("div",{key:j},
+                          h("div",{style:{fontSize:8,color:"rgba(255,179,71,.55)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},f.l),
+                          h("div",{style:{fontSize:12,fontWeight:800,color:"#fff",marginTop:1}},f.v)
+                        )
+                      )
+                    ),
+                    ctr.msg&&h("div",{style:{marginTop:8,paddingTop:8,borderTop:"1px solid rgba(255,179,71,.15)",fontSize:11,color:"rgba(255,255,255,.4)",fontStyle:"italic"}},'"'+ctr.msg+'"')
+                  )
+                )
+              );
+            })
+          );
+        })(),
+
+        // ═══ PASSED TAB ═══════════════════════════════════════════════
+        deskTab==="passed"&&(()=>{
+          const items=[...inds.filter(i=>i.st==="passed"),...rfqs.filter(r=>r.status==="passed")];
+          return h("div",null,
+            h("div",{style:{marginBottom:14}},
+              h("div",{style:{fontSize:16,fontWeight:800,letterSpacing:"-.3px",color:"rgba(255,255,255,.5)"}},"✕ Passed"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)",marginTop:2}},items.length+" indication"+(items.length!==1?"s":"")+" passed")
+            ),
+            items.length===0?h("div",{style:{textAlign:"center",padding:"48px 0"}},
+              h("div",{style:{fontSize:32,marginBottom:10}},"📋"),
+              h("div",{style:{fontSize:13,color:"rgba(255,255,255,.4)"}},"No passed indications")
+            ):items.map((item,i)=>{
+              const note=notes.find(n=>n.id===item.nid);
+              const pt=item.pt||note?.pt||"autocallable";
+              const pc=PT[pt]?.c||"#0EA5E9";
+              const amt=item.amt||item.notional||0;
+              return h("div",{key:item.id||i,style:{background:"rgba(255,255,255,.03)",border:"1px solid rgba(255,255,255,.08)",borderRadius:13,padding:14,marginBottom:9,position:"relative",overflow:"hidden",opacity:.75}},
+                h("div",{style:{position:"absolute",top:0,left:0,width:3,height:"100%",background:"rgba(255,255,255,.2)"}}),
+                h("div",{style:{paddingLeft:10}},
+                  h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}},
+                    h("div",{style:{display:"flex",alignItems:"center",gap:8}},
+                      h("div",{style:{width:30,height:30,borderRadius:"50%",background:"rgba(255,255,255,.07)",border:"1.5px solid rgba(255,255,255,.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:800,color:"rgba(255,255,255,.5)"}},item.ci),
+                      h("div",null,h("div",{style:{fontSize:13,fontWeight:700,color:"rgba(255,255,255,.7)"}},item.cn),h("div",{style:{fontSize:10,color:"rgba(255,255,255,.3)"}},item.t||""))
+                    ),
+                    h("div",{style:{textAlign:"right"}},
+                      h("div",{style:{fontSize:18,fontWeight:900,color:"rgba(255,255,255,.4)"}},"$"+amt.toLocaleString()),
+                      h("div",{style:{fontSize:9,fontWeight:700,color:"rgba(255,255,255,.3)",marginTop:2}},"✕ PASSED")
+                    )
+                  ),
+                  h("div",{style:{display:"flex",gap:5,flexWrap:"wrap"}},
+                    h("span",{style:{background:"rgba(255,255,255,.07)",color:"rgba(255,255,255,.4)",fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},PT[pt]?.l||""),
+                    note&&h("span",{style:{background:"rgba(255,255,255,.05)",color:"rgba(255,255,255,.35)",fontSize:9,fontWeight:600,padding:"2px 7px",borderRadius:20}},note.issuer),
+                    (note?.und||item.und||[]).map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.04)",color:"rgba(255,255,255,.3)",fontSize:9,fontWeight:700,padding:"2px 5px",borderRadius:4}},u))
+                  )
+                )
+              );
+            })
+          );
+        })()
+
+      ),
+
+
+      !isDesk&&h("div",{className:"bnav"},[{k:"build",l:"Build",ic:"★"},{k:"orders",l:"My Structures",ic:"◎"},{k:"history",l:"Past Notes",ic:"📂"},{k:"learn",l:"Learn",ic:"📖"}].map(t=>h("button",{key:t.k,className:"navbtn",style:{color:tab===t.k?"#0EA5E9":"rgba(255,255,255,.4)"},onClick:()=>t.k==="out"?setUser(null):setTab(t.k)},h("span",{style:{fontSize:16}},t.ic),h("span",{className:"navlbl"},t.l))))
+    ),
+
+    // MODALS
+    confInd&&h("div",{className:"cover"},
+      h("div",{className:"cbox"},
+        // Icon
+        h("div",{style:{width:52,height:52,borderRadius:"50%",background:"rgba(0,198,255,.1)",border:"1px solid rgba(0,198,255,.3)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 14px"}},
+          h("svg",{width:22,height:22,viewBox:"0 0 24 24",fill:"none",stroke:"#0EA5E9",strokeWidth:2,strokeLinecap:"round"},
+            h("path",{d:"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"}),
+            h("polyline",{points:"14 2 14 8 20 8"}),
+            h("line",{x1:16,y1:13,x2:8,y2:13}),
+            h("line",{x1:16,y1:17,x2:8,y2:17}),
+            h("polyline",{points:"10 9 9 9 8 9"})
+          )
+        ),
+        h("div",{style:{fontSize:16,fontWeight:800,textAlign:"center",marginBottom:6}},"Review your indication"),
+        h("div",{style:{fontSize:12,color:"rgba(255,255,255,.45)",textAlign:"center",marginBottom:18,lineHeight:1.6}},
+          "Please review the details below before sending to the desk."
+        ),
+        // Summary box
+        h("div",{style:{background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.08)",borderRadius:10,padding:"12px 14px",marginBottom:18}},
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8,paddingBottom:8,borderBottom:"1px solid rgba(255,255,255,.07)"}},
+            h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},"Issuer"),
+            h("span",{style:{fontSize:12,fontWeight:700}},confInd.note.issuer)
+          ),
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8,paddingBottom:8,borderBottom:"1px solid rgba(255,255,255,.07)"}},
+            h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},"Structure"),
+            h("span",{style:{fontSize:12,fontWeight:700,color:ptc(confInd.note)}},ptl(confInd.note))
+          ),
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8,paddingBottom:8,borderBottom:"1px solid rgba(255,255,255,.07)"}},
+            h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},"Underlyings"),
+            h("span",{style:{fontSize:12,fontWeight:700}},confInd.note.und.join(", "))
+          ),
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8,paddingBottom:8,borderBottom:"1px solid rgba(255,255,255,.07)"}},
+            h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},"Tenor"),
+            h("span",{style:{fontSize:12,fontWeight:700}},confInd.note.tenor)
+          ),
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center"}},
+            h("span",{style:{fontSize:11,color:"rgba(255,255,255,.4)"}},"Indication amount"),
+            h("span",{style:{fontSize:18,fontWeight:900,color:"#10B981",fontFamily:"'DM Mono',monospace"}},confInd.amtFmt)
+          )
+        ),
+        h("div",{style:{fontSize:10,color:"rgba(255,255,255,.2)",textAlign:"center",marginBottom:14}},"Non-binding indication of interest only. The desk will respond via your notification centre."),
+        h("div",{style:{display:"flex",gap:9}},
+          h("button",{onClick:()=>setConfInd(null),style:{flex:1,padding:12,borderRadius:11,border:"1px solid rgba(255,255,255,.08)",background:"transparent",color:"rgba(255,255,255,.4)",fontWeight:700,fontSize:13,cursor:"pointer"}},"Edit"),
+          h("button",{onClick:confirmInd,style:{flex:2,padding:12,borderRadius:11,border:"none",background:"linear-gradient(135deg,#10B981,#0EA5E9)",color:"#080C18",fontWeight:800,fontSize:14,cursor:"pointer"}},"Send Indication →")
+        )
+      )
+    ),
+
+    confR&&h("div",{className:"cover"},h("div",{className:"cbox"},
+      h("div",{style:{textAlign:"center",marginBottom:12}},h("div",{style:{width:44,height:44,borderRadius:"50%",background:"rgba(123,97,255,.12)",border:"1px solid rgba(123,97,255,.3)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 10px",color:"#6D56F5",fontSize:18}},"→"),h("div",{style:{fontSize:15,fontWeight:800,marginBottom:4}},"Confirm structure"),h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},"Non-binding indication of interest only")),
+      h("div",{style:{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:11,padding:"13px 14px",marginBottom:14,maxHeight:320,overflowY:"auto"}},
+        // Product type header
+        h("div",{style:{display:"flex",alignItems:"center",gap:7,marginBottom:11,paddingBottom:10,borderBottom:"1px solid rgba(255,255,255,.07)"}},
+          h("div",{style:{width:10,height:10,borderRadius:3,background:PT[rfqF.pt]?.c,flexShrink:0}}),
+          h("div",{style:{fontSize:13,fontWeight:800,color:PT[rfqF.pt]?.c}},PT[rfqF.pt]?.l),
+          h("div",{style:{fontSize:11,color:"rgba(255,255,255,.35)",marginLeft:"auto"}},rfqF.tenor)
+        ),
+        // Issuers
+        h("div",{style:{marginBottom:9}},
+          h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:5}},"Preferred issuers"),
+          h("div",{style:{display:"flex",gap:4,flexWrap:"wrap"}},rfqF.issuers.map(i=>h("span",{key:i,style:{background:"rgba(0,198,255,.12)",color:"#0EA5E9",fontSize:10,fontWeight:700,padding:"2px 8px",borderRadius:20,border:"1px solid rgba(0,198,255,.25)"}},i)))
+        ),
+        // Underlyings
+        h("div",{style:{marginBottom:9}},
+          h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:5}},"Underlyings"),
+          h("div",{style:{display:"flex",gap:4,flexWrap:"wrap"}},rfqF.und.map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.07)",fontSize:11,fontWeight:700,padding:"2px 7px",borderRadius:5}},u)))
+        ),
+        // Key terms grid
+        h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 12px",paddingTop:9,borderTop:"1px solid rgba(255,255,255,.07)"}},
+          h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Notional"),h("div",{style:{fontSize:13,fontWeight:800,color:"#10B981"}},"$"+pm(rfqF.notional).toLocaleString())),
+          h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Tenor"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.tenor)),
+          nC(rfqF.pt)&&rfqF.coup?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Target coupon"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.coup+"%")):null,
+          nB(rfqF.pt)&&rfqF.barrier?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Barrier"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.barrier+"% "+rfqF.btype)):null,
+          nCF(rfqF.pt)&&rfqF.cf?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},rfqF.pt==="autocallable"?"Obs. frequency":"Coupon frequency"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.cf)):null,
+          nM(rfqF.pt)?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Memory"),h("div",{style:{fontSize:13,fontWeight:700,color:rfqF.mem?"#8B5CF6":"rgba(255,255,255,.4)"}},rfqF.mem?"Enabled":"Disabled")):null,
+          nP(rfqF.pt)&&rfqF.coup?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Participation"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.coup+"%")):null,
+          nL(rfqF.pt)&&rfqF.lev?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Leverage"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.lev+"×")):null,
+          nL(rfqF.pt)&&rfqF.cap?h("div",null,h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:2}},"Upside cap"),h("div",{style:{fontSize:13,fontWeight:700}},rfqF.cap+"%")):null
+        )
+      ),
+      h("div",{style:{fontSize:10,color:"rgba(255,255,255,.2)",textAlign:"center",marginBottom:12}},"Non-binding indication of interest only."),
+      h("div",{className:"mbtns"},h("button",{className:"bcnl",onClick:()=>setConfR(false)},"← Edit"),h("button",{className:"bokbtn",onClick:doStructure},"Confirm & send →"))
+    )),
+
+    priceR&&isDesk&&h("div",{className:"cover"},h("div",{className:"cbox"},
+      h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:13}},h("div",{style:{fontSize:14,fontWeight:800}},"Counter terms"),h("button",{className:"xbtn",onClick:()=>setPriceR(null)},"×")),
+      h("div",{className:"ibox"},h("div",{className:"ir"},"Client: ",h("b",{style:{color:"#fff"}},priceR.cn)),h("div",{className:"ir"},"Product: ",h("b",{style:{color:"#fff"}},PT[priceR.pt]?.l||"Structure")),h("div",{className:"ir"},"Underlyings: ",h("b",{style:{color:"#fff"}},priceR.und?.join(", "))),h("div",{className:"ir"},"Notional: ",h("b",{style:{color:"#10B981"}},"$"+priceR.notional?.toLocaleString())),priceR.tc&&h("div",{className:"ir"},"Client target: ",h("b",{style:{color:"#6D56F5"}},priceR.tc+"%"))),
+      h(FG,{label:"Desk coupon (%)"},h("input",{className:"fi",value:pf.coupon,onChange:v=>setPf({...pf,coupon:v.target.value}),placeholder:"e.g. 11.50"})),
+      h(FG,{label:"Desk barrier (%)"},h("input",{className:"fi",value:pf.barrier,onChange:v=>setPf({...pf,barrier:v.target.value}),placeholder:"e.g. 30"})),
+      h(FG,{label:"Message to client (optional)"},h("input",{className:"fi",style:{fontWeight:400,fontSize:12},value:pf.msg,onChange:v=>setPf({...pf,msg:v.target.value}),placeholder:"Optional note…"})),
+      h("div",{className:"mbtns"},h("button",{className:"bcnl",onClick:()=>setPriceR(null)},"Cancel"),h("button",{className:"bokbtn",disabled:!pf.coupon,style:{opacity:pf.coupon?1:.4},onClick:doPrice},"Send counter-terms →"))
+    )),
+
+    reCounterModal&&!isDesk&&(()=>{
+      const {ind,note}=reCounterModal;
+      const pt=note?.pt||"autocallable";
+      const hasAny=rcf.coupon||rcf.barrier||rcf.tenor||rcf.cf||rcf.mem!==null||rcf.pr||rcf.cap||rcf.strike;
+      return h("div",{className:"cover"},
+        h("div",{style:{background:"#0D1225",border:"1px solid rgba(245,158,11,.25)",borderRadius:20,width:"100%",maxWidth:420,padding:22,maxHeight:"88vh",overflowY:"auto"}},
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}},
+            h("div",null,
+              h("div",{style:{fontSize:15,fontWeight:800,marginBottom:3}},"Your re-counter"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.45)"}},"Propose different terms back to the desk")
+            ),
+            h("button",{className:"xbtn",onClick:()=>setReCounterModal(null)},"×")
+          ),
+          h("div",{style:{background:"rgba(245,158,11,.05)",border:"1px solid rgba(245,158,11,.15)",borderRadius:8,padding:"8px 11px",marginBottom:14,fontSize:11,color:"rgba(255,255,255,.5)",lineHeight:1.5}},"Adjust the terms below. Pre-filled with the desk's last offer. The desk will see your proposal and can accept, counter again, or pass."),
+          // Pricing
+          nC(pt)&&h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Pricing"),
+            h("div",{className:"two"},
+              h(FG,{label:"Coupon (% p.a.)"},h("input",{className:"fi",value:rcf.coupon,onChange:v=>setRcf(r=>({...r,coupon:v.target.value})),placeholder:"e.g. 9.50"})),
+              h(FG,{label:"Strike (%)"},h("input",{className:"fi",value:rcf.strike,onChange:v=>setRcf(r=>({...r,strike:v.target.value})),placeholder:"e.g. 100"}))
+            )
+          ),
+          // Barrier
+          nB(pt)&&h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Barrier"),
+            h("div",{className:"two"},
+              h(FG,{label:"Barrier level (%)"},h("input",{className:"fi",value:rcf.barrier,onChange:v=>setRcf(r=>({...r,barrier:v.target.value})),placeholder:"e.g. 60"})),
+              h(FG,{label:"Barrier type"},h("select",{className:"fsel",value:rcf.btype,onChange:v=>setRcf(r=>({...r,btype:v.target.value}))},h("option",{value:"European"},"European (maturity)"),h("option",{value:"American"},"American (daily)")))
+            )
+          ),
+          // Structure
+          h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Structure"),
+            h("div",{className:"two"},
+              h(FG,{label:"Tenor"},h("select",{className:"fsel",value:rcf.tenor,onChange:v=>setRcf(r=>({...r,tenor:v.target.value}))},TENORS.map(o=>h("option",{key:o,value:o},o)))),
+              nCF(pt)&&h(FG,{label:"Obs. frequency"},h("select",{className:"fsel",value:rcf.cf,onChange:v=>setRcf(r=>({...r,cf:v.target.value}))},h("option",{value:""},"— keep —"),...CALLF.map(o=>h("option",{key:o,value:o},o))))
+            ),
+            nM(pt)&&h("div",{style:{marginTop:6}},
+              h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Memory"),
+              h("div",{style:{display:"flex",gap:7}},
+                [{v:true,l:"On"},{v:false,l:"Off"},{v:null,l:"Keep"}].map(o=>
+                  h("button",{key:String(o.v),onClick:()=>setRcf(r=>({...r,mem:o.v})),
+                    style:{flex:1,padding:"7px",borderRadius:8,border:"1px solid "+(rcf.mem===o.v?"#A78BFA":"rgba(255,255,255,.1)"),cursor:"pointer",fontSize:11,fontWeight:700,
+                    background:rcf.mem===o.v?"rgba(167,139,250,.12)":"transparent",color:rcf.mem===o.v?"#A78BFA":"rgba(255,255,255,.4)"}
+                  },o.l)
+                )
+              )
+            )
+          ),
+          h(FG,{label:"Message to desk (optional)",mb:14},
+            h("input",{className:"fi",style:{fontWeight:400,fontSize:12},value:rcf.msg,onChange:v=>setRcf(r=>({...r,msg:v.target.value})),placeholder:"e.g. Need at least 9% given current rates…"})
+          ),
+          h("div",{className:"mbtns"},
+            h("button",{className:"bcnl",onClick:()=>setReCounterModal(null)},"Cancel"),
+            h("button",{onClick:()=>submitReCounter(reCounterModal.id),disabled:!hasAny,
+              style:{flex:2,padding:10,borderRadius:10,border:"none",
+                background:hasAny?"linear-gradient(135deg,#F59E0B,#F43F5E)":"rgba(255,255,255,.06)",
+                color:hasAny?"#fff":"rgba(255,255,255,.28)",fontWeight:800,fontSize:12,cursor:hasAny?"pointer":"default"}
+            },"Send re-counter to desk →")
+          )
+        )
+      );
+    })(),
+
+    closeOpenModal&&isDesk&&(()=>{
+      const item=closeOpenModal.item;
+      const note=notes.find(n=>n.id===item.nid);
+      const msg=closeOpenModal.msg||"";
+      const setMsg=v=>setCloseOpenModal(m=>({...m,msg:v}));
+      return h("div",{className:"cover"},
+        h("div",{style:{
+          background:"#0C1020",border:"1px solid rgba(244,63,94,.25)",
+          borderRadius:20,width:"100%",maxWidth:400,padding:22
+        }},
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}},
+            h("div",null,
+              h("div",{style:{fontSize:16,fontWeight:800,marginBottom:3}},"Close note — strike today"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},
+                item.cn+" · $"+item.amt?.toLocaleString()
+              )
+            ),
+            h("button",{className:"xbtn",onClick:()=>setCloseOpenModal(null)},"×")
+          ),
+
+          // Info
+          h("div",{style:{background:"rgba(244,63,94,.06)",border:"1px solid rgba(244,63,94,.15)",borderRadius:10,padding:"11px 13px",marginBottom:14}},
+            h("div",{style:{fontSize:12,fontWeight:700,color:"#F43F5E",marginBottom:4}},"🔔 This will notify the client immediately"),
+            h("div",{style:{fontSize:11,color:"rgba(255,255,255,.45)",lineHeight:1.6}},
+              "The note will be marked as striking today at market close. "+
+              item.cn+" will receive an instant notification confirming the strike."
+            )
+          ),
+
+          // Note summary
+          note&&h("div",{style:{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:10,padding:"10px 13px",marginBottom:14}},
+            h("div",{style:{display:"flex",alignItems:"center",gap:7,marginBottom:5}},
+              h("span",{style:{background:PT[note.pt]?.c+"18",color:PT[note.pt]?.c,fontSize:9,fontWeight:700,padding:"2px 7px",borderRadius:20}},PT[note.pt]?.l||""),
+              h("span",{style:{fontSize:12,fontWeight:700}},note.issuer)
+            ),
+            h("div",{style:{display:"flex",gap:4,flexWrap:"wrap",marginBottom:6}},
+              note.und.map(u=>h("span",{key:u,style:{background:"rgba(255,255,255,.07)",fontSize:11,fontWeight:700,padding:"2px 7px",borderRadius:5}},u))
+            ),
+            h("div",{style:{display:"flex",gap:12}},
+              note.tenor&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Tenor"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.tenor)),
+              note.coupon&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Coupon"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.coupon+"%")),
+              note.barrier&&h("div",null,h("div",{style:{fontSize:8,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".4px"}},"Barrier"),h("div",{style:{fontSize:11,fontWeight:700,marginTop:1}},note.barrier+"%"))
+            )
+          ),
+
+          // Message
+          h(FG,{label:"Message to client (optional)",mb:16},
+            h("input",{
+              className:"fi",style:{fontWeight:400,fontSize:12},
+              value:msg,onChange:v=>setMsg(v.target.value),
+              placeholder:"e.g. Striking at 4pm ET today — please confirm your wire details…"
+            })
+          ),
+
+          h("div",{style:{display:"flex",gap:9}},
+            h("button",{className:"bcnl",onClick:()=>setCloseOpenModal(null)},"Cancel"),
+            h("button",{
+              onClick:()=>closeOpenNote(item.id,msg),
+              style:{flex:2,padding:12,borderRadius:10,border:"none",background:"linear-gradient(135deg,#F43F5E,#F97316)",color:"#fff",fontWeight:800,fontSize:13,cursor:"pointer"}
+            },"🔔 Confirm — notify client now")
+          )
+        )
+      );
+    })(),
+
+    acceptModal&&isDesk&&(()=>{
+      const selType=acceptModal.selType||null;
+      const setSelType=t=>setAcceptModal(m=>({...m,selType:t}));
+      const msg=acceptModal.msg||"";
+      const setMsg=v=>setAcceptModal(m=>({...m,msg:v}));
+      return h("div",{className:"cover"},
+        h("div",{style:{
+          background:"#0C1020",border:"1px solid rgba(255,255,255,.1)",
+          borderRadius:20,width:"100%",maxWidth:400,padding:22
+        }},
+
+          // Header
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:18}},
+            h("div",null,
+              h("div",{style:{fontSize:16,fontWeight:800,marginBottom:4}},"How are you accepting?"),
+              h("div",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},
+                acceptModal.ind?.cn+" · $"+acceptModal.ind?.amt?.toLocaleString()
+              )
+            ),
+            h("button",{className:"xbtn",onClick:()=>setAcceptModal(null)},"×")
+          ),
+
+          // Option A — Striking today
+          h("div",{
+            onClick:()=>setSelType("closing"),
+            style:{
+              width:"100%",marginBottom:10,padding:"14px 16px",borderRadius:12,
+              border:"2px solid "+(selType==="closing"?"#10B981":"rgba(16,185,129,.2)"),
+              background:selType==="closing"?"rgba(16,185,129,.1)":"rgba(16,185,129,.04)",
+              cursor:"pointer",textAlign:"left",transition:"all .15s",position:"relative"
+            }
+          },
+            selType==="closing"&&h("div",{style:{position:"absolute",top:12,right:12,width:18,height:18,borderRadius:"50%",background:"#10B981",display:"flex",alignItems:"center",justifyContent:"center"}},
+              h("svg",{width:10,height:10,viewBox:"0 0 24 24",fill:"none",stroke:"#fff",strokeWidth:3,strokeLinecap:"round"},h("polyline",{points:"20 6 9 17 4 12"}))
+            ),
+            h("div",{style:{display:"flex",alignItems:"center",gap:12}},
+              h("div",{style:{width:40,height:40,borderRadius:10,background:"rgba(16,185,129,.15)",border:"1px solid rgba(16,185,129,.3)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:18}},"🔔"),
+              h("div",null,
+                h("div",{style:{fontSize:13,fontWeight:800,color:"#10B981",marginBottom:3}},"Striking today at market close"),
+                h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",lineHeight:1.5}},"Note prices at today's close. Client is confirmed. This is final.")
+              )
+            )
+          ),
+
+          // Option B — Accepted, note remains open
+          h("div",{
+            onClick:()=>setSelType("open"),
+            style:{
+              width:"100%",marginBottom:16,padding:"14px 16px",borderRadius:12,
+              border:"2px solid "+(selType==="open"?"#0EA5E9":"rgba(14,165,233,.2)"),
+              background:selType==="open"?"rgba(14,165,233,.08)":"rgba(14,165,233,.03)",
+              cursor:"pointer",textAlign:"left",transition:"all .15s",position:"relative"
+            }
+          },
+            selType==="open"&&h("div",{style:{position:"absolute",top:12,right:12,width:18,height:18,borderRadius:"50%",background:"#0EA5E9",display:"flex",alignItems:"center",justifyContent:"center"}},
+              h("svg",{width:10,height:10,viewBox:"0 0 24 24",fill:"none",stroke:"#fff",strokeWidth:3,strokeLinecap:"round"},h("polyline",{points:"20 6 9 17 4 12"}))
+            ),
+            h("div",{style:{display:"flex",alignItems:"center",gap:12}},
+              h("div",{style:{width:40,height:40,borderRadius:10,background:"rgba(14,165,233,.12)",border:"1px solid rgba(14,165,233,.25)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:18}},"📋"),
+              h("div",null,
+                h("div",{style:{fontSize:13,fontWeight:800,color:"#0EA5E9",marginBottom:3}},"Accepted — note remains open"),
+                h("div",{style:{fontSize:11,color:"rgba(255,255,255,.4)",lineHeight:1.5}},"Indication valid. Note strikes at a future date — client will be notified when ready.")
+              )
+            )
+          ),
+
+          // Message to client
+          h(FG,{label:"Message to client (optional)",mb:16},
+            h("input",{
+              className:"fi",style:{fontWeight:400,fontSize:12},
+              value:msg,
+              onChange:v=>setMsg(v.target.value),
+              placeholder:selType==="closing"?"e.g. Striking at 4pm ET today, please confirm…":"e.g. Working on it — will notify you of the strike date shortly…"
+            })
+          ),
+
+          // Action buttons
+          h("div",{style:{display:"flex",gap:9}},
+            h("button",{className:"bcnl",onClick:()=>setAcceptModal(null)},"Cancel"),
+            h("button",{
+              onClick:()=>{const m=acceptModal;if(m&&m.selType){deskAcc(m.id,m.selType,m.msg||"");}},
+              style:{
+                flex:2,padding:12,borderRadius:10,border:"none",fontWeight:800,fontSize:13,
+                cursor:selType?"pointer":"not-allowed",
+                background:selType==="closing"
+                  ?"linear-gradient(135deg,#10B981,#0EA5E9)"
+                  :selType==="open"
+                    ?"linear-gradient(135deg,#0EA5E9,#6D56F5)"
+                    :"rgba(255,255,255,.06)",
+                color:selType?"#fff":"rgba(255,255,255,.25)",
+                opacity:selType?1:.6
+              }
+            },
+              selType==="closing"?"Confirm — striking today →":
+              selType==="open"?"Confirm — note remains open →":
+              "Select an option above"
+            )
+          )
+        )
+      );
+    })(),
+
+    ctrInd&&isDesk&&(()=>{
+      const note=notes.find(n=>n.id===ctrInd.nid);
+      const pt=note?.pt||"autocallable";
+      const hasAny=cf2.coupon||cf2.barrier||cf2.tenor||cf2.cf||cf2.btype||cf2.mem!==null||cf2.pr||cf2.lev||cf2.cap||cf2.strike;
+      return h("div",{className:"cover"},
+        h("div",{style:{background:"#0C1020",border:"1px solid rgba(255,179,71,.25)",borderRadius:20,width:"100%",maxWidth:420,padding:22,maxHeight:"88vh",overflowY:"auto"}},
+          // Header
+          h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}},
+            h("div",null,
+              h("div",{style:{fontSize:15,fontWeight:800,marginBottom:3}},"Counter-terms"),
+              h("div",{style:{display:"flex",alignItems:"center",gap:6}},
+                h("div",{style:{width:8,height:8,borderRadius:2,background:PT[pt]?.c,flexShrink:0}}),
+                h("span",{style:{fontSize:12,color:PT[pt]?.c,fontWeight:700}},PT[pt]?.l),
+                h("span",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},"·"),
+                h("span",{style:{fontSize:12,color:"rgba(255,255,255,.6)"}},"$"+ctrInd.amt.toLocaleString()),
+                h("span",{style:{fontSize:12,color:"rgba(255,255,255,.4)"}},"·"),
+                h("span",{style:{fontSize:12,color:"rgba(255,255,255,.6)"}},"James D.")
+              )
+            ),
+            h("button",{className:"xbtn",onClick:()=>setCtrInd(null)},"×")
+          ),
+          h("div",{style:{background:"rgba(255,179,71,.05)",border:"1px solid rgba(255,179,71,.15)",borderRadius:8,padding:"8px 11px",marginBottom:14,fontSize:11,color:"rgba(255,255,255,.5)",lineHeight:1.5}},"Adjust any terms below. Pre-filled with current note values. Client will see all changes and can accept or decline."),
+
+          // ── ISSUER ───────────────────────────────────────────────────
+          h("div",{style:{marginBottom:14}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:8}},"Issuer"),
+            h("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
+              ISSUERS.map(iss=>
+                h("button",{key:iss,onClick:()=>setCf2(f=>({...f,issuer:f.issuer===iss?"":iss})),
+                  style:{
+                    padding:"5px 10px",borderRadius:20,fontSize:11,fontWeight:700,cursor:"pointer",
+                    border:"1px solid "+(cf2.issuer===iss?"#F59E0B":"rgba(255,255,255,.1)"),
+                    background:cf2.issuer===iss?"rgba(245,158,11,.12)":"transparent",
+                    color:cf2.issuer===iss?"#F59E0B":"rgba(255,255,255,.4)"
+                  }
+                },iss)
+              )
+            ),
+            cf2.issuer&&h("div",{style:{marginTop:8,fontSize:11,color:"rgba(245,158,11,.7)",fontStyle:"italic"}},
+              "Counter will propose "+cf2.issuer+" as the issuing bank"
+            )
+          ),
+
+          // ── PRICING TERMS ──────────────────────────────────────────
+          nC(pt)&&h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Pricing"),
+            h("div",{className:"two"},
+              h(FG,{label:"Coupon (% p.a.)"},
+                h("input",{className:"fi",value:cf2.coupon,onChange:v=>setCf2({...cf2,coupon:v.target.value}),placeholder:"e.g. 10.50"})
+              ),
+              h(FG,{label:"Strike (%)"},
+                h("input",{className:"fi",value:cf2.strike,onChange:v=>setCf2({...cf2,strike:v.target.value}),placeholder:"e.g. 100"})
+              )
+            )
+          ),
+          nP(pt)&&h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Participation"),
+            h("div",{className:"two"},
+              h(FG,{label:"Participation rate (%)"},
+                h("input",{className:"fi",value:cf2.pr,onChange:v=>setCf2({...cf2,pr:v.target.value}),placeholder:"e.g. 150"})
+              ),
+              nL(pt)&&h(FG,{label:"Leverage (×)"},
+                h("input",{className:"fi",value:cf2.lev,onChange:v=>setCf2({...cf2,lev:v.target.value}),placeholder:"e.g. 2"})
+              )
+            ),
+            nL(pt)&&h(FG,{label:"Upside cap (%)"},
+              h("input",{className:"fi",value:cf2.cap,onChange:v=>setCf2({...cf2,cap:v.target.value}),placeholder:"e.g. 40"})
+            )
+          ),
+
+          // ── BARRIER ──────────────────────────────────────────────────
+          nB(pt)&&h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Barrier"),
+            h("div",{className:"two"},
+              h(FG,{label:"Barrier level (%)"},
+                h("input",{className:"fi",value:cf2.barrier,onChange:v=>setCf2({...cf2,barrier:v.target.value}),placeholder:"e.g. 30"})
+              ),
+              h(FG,{label:"Barrier type"},
+                h("select",{className:"fsel",value:cf2.btype,onChange:v=>setCf2({...cf2,btype:v.target.value})},
+                  h("option",{value:"European"},"European (maturity)"),
+                  h("option",{value:"American"},"American (daily)")
+                )
+              )
+            )
+          ),
+
+          // ── STRUCTURE ────────────────────────────────────────────────
+          h("div",{style:{marginBottom:4}},
+            h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Structure"),
+            h("div",{className:"two"},
+              h(FG,{label:"Tenor"},
+                h("select",{className:"fsel",value:cf2.tenor,onChange:v=>setCf2({...cf2,tenor:v.target.value})},
+                  TENORS.map(o=>h("option",{key:o,value:o},o))
+                )
+              ),
+              nCF(pt)&&h(FG,{label:pt==="autocallable"?"Obs. frequency":"Coupon frequency"},
+                h("select",{className:"fsel",value:cf2.cf,onChange:v=>setCf2({...cf2,cf:v.target.value})},
+                  h("option",{value:""},"— keep original —"),
+                  CALLF.map(o=>h("option",{key:o,value:o},o))
+                )
+              )
+            ),
+            nM(pt)&&h("div",{style:{marginTop:6}},
+              h("div",{style:{fontSize:9,color:"rgba(255,255,255,.3)",fontWeight:700,textTransform:"uppercase",letterSpacing:".5px",marginBottom:6}},"Memory feature"),
+              h("div",{style:{display:"flex",gap:7}},
+                [{v:true,l:"On"},{v:false,l:"Off"},{v:null,l:"Keep original"}].map(o=>
+                  h("button",{key:String(o.v),onClick:()=>setCf2({...cf2,mem:o.v}),
+                    style:{flex:1,padding:"7px",borderRadius:8,border:"1px solid "+(cf2.mem===o.v?"#8B5CF6":"rgba(255,255,255,.1)"),cursor:"pointer",fontSize:11,fontWeight:700,background:cf2.mem===o.v?"rgba(167,139,250,.12)":"transparent",color:cf2.mem===o.v?"#8B5CF6":"rgba(255,255,255,.4)"}
+                  },o.l)
+                )
+              )
+            )
+          ),
+
+          // ── MESSAGE ──────────────────────────────────────────────────
+          h(FG,{label:"Message to client (optional)",mb:14},
+            h("input",{className:"fi",style:{fontWeight:400,fontSize:12},value:cf2.msg,onChange:v=>setCf2({...cf2,msg:v.target.value}),placeholder:"e.g. best we can do at current vol levels"})
+          ),
+
+          // ── ACTIONS ──────────────────────────────────────────────────
+          h("div",{className:"mbtns"},
+            h("button",{className:"bcnl",onClick:()=>setCtrInd(null)},"Cancel"),
+            h("button",{onClick:doCounter,disabled:!hasAny,
+              style:{flex:2,padding:10,borderRadius:10,border:"none",
+                background:hasAny?"linear-gradient(135deg,#F59E0B,#F43F5E)":"rgba(255,255,255,.06)",
+                color:hasAny?"#fff":"rgba(255,255,255,.28)",fontWeight:800,fontSize:12,
+                cursor:hasAny?"pointer":"default"}
+            },"Send counter-terms →")
+          )
+        )
+      );
+    })(),
+
+    closeN&&isDesk&&h("div",{className:"cover"},h("div",{className:"cbox",style:{border:"1px solid rgba(255,107,107,.2)"}},
+      h("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:11}},h("div",null,h("div",{style:{fontSize:14,fontWeight:800,marginBottom:3}},"Close at today's strike"),h("div",{style:{fontSize:12,fontWeight:700,color:"#F43F5E"}},closeN.issuer+" · "+closeN.und?.join(", "))),h("button",{className:"xbtn",onClick:()=>setCloseN(null)},"×")),
+      h("div",{style:{background:"rgba(255,107,107,.07)",border:"1px solid rgba(255,107,107,.16)",borderRadius:9,padding:"9px 11px",marginBottom:11,fontSize:12,color:"rgba(255,255,255,.55)",lineHeight:1.6}},"This will notify all clients with pending indications that the note is closing today."),
+      h(FG,{label:"Message to clients (optional)"},h("input",{className:"fi",style:{fontWeight:400,fontSize:12},value:closeMsg,onChange:v=>setCloseMsg(v.target.value),placeholder:"e.g. Strike confirmed at market close 4pm ET"})),
+      h("div",{style:{background:"rgba(255,255,255,.05)",borderRadius:8,padding:"8px 11px",marginBottom:11,fontSize:12,color:"rgba(255,255,255,.4)"}},
+        "Will notify: ",h("strong",{style:{color:"#fff"}},inds.filter(i=>i.nid===closeN.id&&i.st==="pending").length+" client"+(inds.filter(i=>i.nid===closeN.id&&i.st==="pending").length!==1?"s":""))
+      ),
+      h("div",{className:"mbtns"},h("button",{className:"bcnl",onClick:()=>setCloseN(null)},"Cancel"),h("button",{onClick:doClose,style:{flex:2,padding:10,borderRadius:10,border:"none",background:"linear-gradient(135deg,#F43F5E,#F97316)",color:"#fff",fontWeight:800,fontSize:12,cursor:"pointer"}},"→ Confirm & notify clients"))
+    ))
+  );
+}
+// Supabase client — full implementation
+(function(){
+  function mkClient(url, key){
+    var token = key;
+    function authHeaders(){
+      return {'Content-Type':'application/json','apikey':key,'Authorization':'Bearer '+token};
+    }
+    return {
+      _setToken: function(t){ token = t||key; },
+      auth: {
+        signInWithPassword: async function(p){
+          try{
+            var r = await fetch(url+'/auth/v1/token?grant_type=password',{
+              method:'POST',
+              headers:{'Content-Type':'application/json','apikey':key},
+              body:JSON.stringify({email:p.email,password:p.password})
+            });
+            var d = await r.json();
+            if(!r.ok) return {data:null,error:{message:d.error_description||d.error||'Invalid login credentials'}};
+            token = d.access_token||key;
+            return {data:{user:{id:d.user.id,email:d.user.email,user_metadata:d.user.user_metadata||{}}},error:null};
+          }catch(e){return {data:null,error:{message:'Connection failed. Please try again.'}};}
+        },
+        signUp: async function(p){
+          try{
+            var r = await fetch(url+'/auth/v1/signup',{
+              method:'POST',
+              headers:{'Content-Type':'application/json','apikey':key},
+              body:JSON.stringify({email:p.email,password:p.password,data:p.options&&p.options.data||{}})
+            });
+            var d = await r.json();
+            if(!r.ok) return {data:null,error:{message:d.error_description||d.msg||d.error||'Sign up failed'}};
+            token = d.access_token||key;
+            var user = d.user||d;
+            return {data:{user:{id:user.id,email:user.email||p.email,user_metadata:user.user_metadata||{}}},error:null};
+          }catch(e){return {data:null,error:{message:'Connection failed. Please try again.'}};}
+        }
+      },
+      from: function(table){
+        var _sel='*',_eqs=[],_base=url+'/rest/v1/'+table;
+        var obj = {
+          select:function(c){_sel=c||'*';return obj;},
+          eq:function(col,val){_eqs.push(col+'=eq.'+encodeURIComponent(val));return obj;},
+          single:async function(){
+            try{
+              var q='?select='+_sel+(_eqs.length?'&'+_eqs.join('&'):'');
+              var r=await fetch(_base+q,{headers:{...authHeaders(),'Accept':'application/vnd.pgrst.object+json'}});
+              var d=await r.json();
+              if(!r.ok) return {data:null,error:d};
+              return {data:d,error:null};
+            }catch(e){return {data:null,error:{message:e.message}};}
+          },
+          insert:async function(body){
+            try{
+              var r=await fetch(_base,{method:'POST',headers:{...authHeaders(),'Prefer':'return=representation'},body:JSON.stringify(body)});
+              var d=await r.json();
+              if(!r.ok) return {data:null,error:d};
+              return {data:d,error:null};
+            }catch(e){return {data:null,error:{message:e.message}};}
+          }
+        };
+        return obj;
+      }
+    };
+  }
+  window.sb = mkClient(SUPABASE_URL, SUPABASE_ANON);
+  ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App,null));
+})();
+</script>
+</body>
+</html>
